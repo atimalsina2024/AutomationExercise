@@ -22,12 +22,17 @@ public class DeleteUser extends PageBase{
 		return this.deleteHeader;
 	}
 
-	public void waitForElementToBeVisible(WebElement titleElement) {
+	public static void waitForElementToBeVisible(WebElement titleElement) {
 		waitUtil.waitForElementToBeVisible(titleElement);
 	}
 
 	public String getTitleElementText() {
+		waitForElementToBeVisible(this.deleteHeader);
 		return this.deleteHeader.getText();
+	}
+	
+	public void clickContinueButton() {
+		this.continueButton.click();
 	}
 	
 	

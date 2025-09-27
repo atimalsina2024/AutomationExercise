@@ -9,12 +9,12 @@ import utils.WaitUtils;
 public class PageBase {
 	
 	protected WebDriver driver;
-	protected WaitUtils waitUtil;
+	protected static WaitUtils waitUtil;
 	protected JavascriptUtils js;
 	
 	public PageBase(WebDriver driver) {
 		PageFactory.initElements(driver, this);
-		this.waitUtil = new WaitUtils(driver);
+		PageBase.waitUtil = new WaitUtils(driver);
 		this.js = new JavascriptUtils(driver);
 	}
 

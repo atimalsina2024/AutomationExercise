@@ -2,7 +2,6 @@ package com.test.cases;
 
 import static org.testng.Assert.assertTrue;
 
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -26,68 +25,106 @@ public class TestCaseOne extends TestBase{
 	@AfterTest
 	public void testTeardown() {
 		teardown();
+	}	
+	@Test(priority = 2, description = "after refactoring")
+	public void Test_002_RegisterUser() {
+		verifyHomePageIsVisibleSuccessfully();
+		clickSignUpButton();
+		verifySignupInformationIsVisible();
+		signUp("user5", "oiwer@mnf.com");
+		verifyAccountInformationIsVisible();
+		fillAccountDetail();
+		verifyAccountCreated();
+		continueToHomePageAfterAccountCreation();
+		verifyUsernameIsVisible();
+		deleteUser();
+		verifyAccountDeletion();
+		continueToHomePageAfterDelete();
 	}
-	@Test
-	public void Test_001_Register_User() {
-//		1. Launch browser -- done in test base
-//		2. Navigate to url 'http://automationexercise.com' -- done in testSetup() method
-//		3. Verify that home page is visible successfully
+	
+	
+	//----------------------
+	//Test Steps
+	//----------------------
+	
+	public void verifyHomePageIsVisibleSuccessfully() {
 		HomePage hp = new HomePage(driver);
-		WebElement homeBtn = hp.getHomeElement();
-		boolean homeColor = hp.isElementSelected(homeBtn);
-		assertTrue(homeColor);
-//		4. Click on 'Signup / Login' button
-		hp.clickSignupLoginButton();
-//		5. Verify 'New User Signup!' is visible
-		SignupLogin sl = new SignupLogin(driver);
-		WebElement newUserSignupElement = sl.getNewUserSignUpElement();
-		assertTrue(newUserSignupElement.isDisplayed());
-//		6. Enter name and email address
-		sl.enterSignupName("user");
-		sl.enterSignupEmail("a4@test.com");
-//		7. Click 'Signup' button
-		sl.clickSignupButton();
-//		8. Verify that 'ENTER ACCOUNT INFORMATION' is visible
-		AccountInformation acctInfo = new AccountInformation(driver);
-		acctInfo.waitForElementToBeVisible(acctInfo.getPageTitleElement());
-		assertTrue(acctInfo.getPageTitleText().toUpperCase().equals("ENTER ACCOUNT INFORMATION"));
-//		9. Fill details: Title, Name, Email, Password, Date of birth
-		acctInfo.setTitle("Mr");
-		acctInfo.setPassword("pword");
-		acctInfo.setDataOfBirth("1980-07-25");
-//		10. Select checkbox 'Sign up for our newsletter!'
-		acctInfo.signUpForNewsLetter();
-//		11. Select checkbox 'Receive special offers from our partners!'
-		acctInfo.receiveSpecialOffers();
-//		12. Fill details: First name, Last name, Company, Address, Address2, Country, State, City, Zipcode, Mobile Number
-		acctInfo.setFirstName("Fname");
-		acctInfo.setLastName("Lname");
-		acctInfo.setCompany("Cmp");
-		acctInfo.setStreetAddressOne("123 Test St");
-		acctInfo.setStreetAddressTwo("apt 15");
-		acctInfo.clickCountryDropdown();
-		acctInfo.setCountry("United States");
-		acctInfo.setState("Texas");
-		acctInfo.setCity("Dallas");
-		acctInfo.setZipcode("76025");
-		acctInfo.setMobileNumber("7172721121");
-//		13. Click 'Create Account button'
-		acctInfo.clickCreateAccountButton();
-//		14. Verify that 'ACCOUNT CREATED!' is visible
-		AccountCreated ac = new AccountCreated(driver);
-		ac.waitForElementToBeVisible(ac.getTitleElement());
-		assertTrue(ac.getTitleText().toUpperCase().equals("ACCOUNT CREATED!"));
-//		15. Click 'Continue' button
-		ac.clickContinueButton();
-//		16. Verify that 'Logged in as username' is visible
-		hp.waitForElementToBeVisible(hp.getLoggedUserNameElement());
-		assertTrue(hp.getLoggedUserNameText().equals("user"));
-//		17. Click 'Delete Account' button
-		hp.deleteUser();
-//		18. Verify that 'ACCOUNT DELETED!' is visible and click 'Continue' button
-		DeleteUser du = new DeleteUser(driver);
-		du.waitForElementToBeVisible(du.getTitleElement());
-		assertTrue(du.getTitleElementText().toUpperCase().equals("ACCOUNT DELETED!"));
+		assertTrue(hp.isElementSelected(hp.getHomeElement()), "Home Button is not orange");
 	}
+	
+	public void clickSignUpButton() {
+		new HomePage(driver).clickSignupLoginButton();
+	}
+	
+	public void verifySignupInformationIsVisible() {
+		boolean signUpDisplayed = new SignupLogin(driver).getNewUserSignUpElement().isDisplayed();
+		assertTrue(signUpDisplayed, "Verify 'New User Signup!' is visible failed");
+	}
+	
+	public void signUp(String user, String email) {
+		SignupLogin sl = new SignupLogin(driver);
+		sl.enterSignupName(user);
+		sl.enterSignupEmail(email);
+		sl.clickSignupButton();
+	}
+	
+	public void verifyAccountInformationIsVisible() {
+		boolean result =new AccountInformation(driver).getPageTitleElement().getText().toUpperCase().equals("ENTER ACCOUNT INFORMATION");
+		assertTrue(result);
+	}
+	
+	public void fillAccountDetail() {
+		AccountInformation info = new AccountInformation(driver);
+		info.setTitle("Mr");
+		info.setPassword("pword");
+		info.setDataOfBirth("1980-07-25");
+		info.signUpForNewsLetter();
+		info.receiveSpecialOffers();
+		info.setFirstName("Fname");
+		info.setLastName("Lname");
+		info.setCompany("Cmp");
+		info.setStreetAddressOne("123 Test St");
+		info.setStreetAddressTwo("apt 15");
+		info.clickCountryDropdown();
+		info.setCountry("United States");
+		info.setState("Texas");
+		info.setCity("Dallas");
+		info.setZipcode("76025");
+		info.setMobileNumber("7172721121");
+		info.clickCreateAccountButton();
+	}
+	
+	public void verifyAccountCreated() {
+		boolean rslt = new AccountCreated(driver).getTitleText().toUpperCase().equals("ACCOUNT CREATED!");
+		assertTrue(rslt);
+	}
+	
+	public void continueToHomePageAfterAccountCreation() {
+		new AccountCreated(driver).clickContinueButton();
+	}
+	
+	public void verifyUsernameIsVisible() {
+		boolean rslt = new HomePage(driver).getLoggedUserNameElement().isDisplayed();
+		assertTrue(rslt);
+	}
+	
+	public void deleteUser() {
+		new HomePage(driver).deleteUser();
+	}
+	
+	public void verifyAccountDeletion() {
+		boolean rslt = new DeleteUser(driver).getTitleElementText().equals("ACCOUNT DELETED!");
+		assertTrue(rslt);
+	}
+	
+	public void continueToHomePageAfterDelete() {
+		new DeleteUser(driver).clickContinueButton();
+	}
+	
+	
+	
+	
+	
+	
 
 }

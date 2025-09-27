@@ -35,6 +35,7 @@ public class HomePage extends PageBase{
 	}
 	
 	public WebElement getLoggedUserNameElement() {
+		waitForElementToBeVisible(this.loggedUserName);
 		return this.loggedUserName;
 	}
 	
@@ -42,11 +43,12 @@ public class HomePage extends PageBase{
 		this.logonSignupButton.click();
 	}
 	
-	public void waitForElementToBeVisible(WebElement element) {
+	public static void waitForElementToBeVisible(WebElement element) {
 		waitUtil.waitForElementToBeVisible(element);
 	}
 	
 	public String getLoggedUserNameText() {
+		waitForElementToBeVisible(this.loggedUserName);
 		return this.loggedUserName.getText();
 	}
 	public void deleteUser() {

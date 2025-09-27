@@ -82,12 +82,13 @@ public class AccountInformation extends PageBase{
 	@FindBy(css = "button[data-qa='create-account']")
 	WebElement createAccountButton;
 	
-	public void waitForElementToBeVisible(WebElement element) {
+	public static void waitForElementToBeVisible(WebElement element) {
 		waitUtil.waitForElementToBeVisible(element);
 	}
 	
 	public WebElement getPageTitleElement() {
-		return pageTitle;
+		 waitForElementToBeVisible(this.pageTitle);
+		 return this.pageTitle;
 	}
 	
 	public String getPageTitleText() {

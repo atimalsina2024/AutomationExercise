@@ -5,8 +5,8 @@
     <classes>
       <class name="com.test.cases.TestCaseOne">
         <methods>
-          <include name="test_001"/>
           <include name="testTeardown"/>
+          <include name="Test_002_RegisterUser"/>
           <include name="testSetup"/>
         </methods>
       </class> <!-- com.test.cases.TestCaseOne -->

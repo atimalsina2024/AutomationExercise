@@ -19,14 +19,16 @@ public class AccountCreated extends PageBase{
 	WebElement continueButton;
 
 	public WebElement getTitleElement() {
+		waitForElementToBeVisible(this.pageHeader);
 		return this.pageHeader;
 	}
 
-	public void waitForElementToBeVisible(WebElement titleElement) {
+	public static void waitForElementToBeVisible(WebElement titleElement) {
 		waitUtil.waitForElementToBeVisible(titleElement);
 	}
 
 	public String getTitleText() {
+		waitForElementToBeVisible(this.pageHeader);
 		return this.pageHeader.getText();
 	}
 
