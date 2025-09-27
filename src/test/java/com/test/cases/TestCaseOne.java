@@ -27,7 +27,7 @@ public class TestCaseOne extends TestBase{
 		teardown();
 	}	
 	@Test(priority = 2, description = "after refactoring")
-	public void Test_002_RegisterUser() {
+	public void Test_001_RegisterUser() {
 		verifyHomePageIsVisibleSuccessfully();
 		clickSignUpButton();
 		verifySignupInformationIsVisible();
@@ -47,12 +47,12 @@ public class TestCaseOne extends TestBase{
 	//Test Steps
 	//----------------------
 	
-	public void verifyHomePageIsVisibleSuccessfully() {
+	public static void verifyHomePageIsVisibleSuccessfully() {
 		HomePage hp = new HomePage(driver);
 		assertTrue(hp.isElementSelected(hp.getHomeElement()), "Home Button is not orange");
 	}
 	
-	public void clickSignUpButton() {
+	public static void clickSignUpButton() {
 		new HomePage(driver).clickSignupLoginButton();
 	}
 	

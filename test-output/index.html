@@ -92,7 +92,7 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">2 methods,   2 passed</span>
+                    <span class="method-stats">1 method,   1 passed</span>
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -103,12 +103,7 @@
                     <div class="method-list-content passed suite-Default_suite">
                       <span>
                         <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Default_suite" title="com.test.cases.TestCaseOne" class="method navigator-link" hash-for-method="Test_001_Register_User">Test_001_Register_User</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Default_suite" title="com.test.cases.TestCaseOne" class="method navigator-link" hash-for-method="Test_002_RegisterUser">Test_002_RegisterUser</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-Default_suite" title="com.test.cases.TestCaseThree" class="method navigator-link" hash-for-method="Test_003">Test_003</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-Default_suite -->
@@ -126,25 +121,16 @@
           <div class="suite-Default_suite-class-passed">
             <div class="main-panel-header rounded-window-top">
               <img src="passed.png"/>
-              <span class="class-name">com.test.cases.TestCaseOne</span>
+              <span class="class-name">com.test.cases.TestCaseThree</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="Test_001_Register_User">
-                  </a> <!-- Test_001_Register_User -->
-                  <span class="method-name">Test_001_Register_User</span>
+                  <a name="Test_003">
+                  </a> <!-- Test_003 -->
+                  <span class="method-name">Test_003</span>
                   <em>
-(before refactoring)                  </em>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-              <div class="method">
-                <div class="method-content">
-                  <a name="Test_002_RegisterUser">
-                  </a> <!-- Test_002_RegisterUser -->
-                  <span class="method-name">Test_002_RegisterUser</span>
-                  <em>
-(after refactoring)                  </em>
+(Login User with incorrect email and password)                  </em>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
@@ -152,7 +138,7 @@
         </div> <!-- panel Default_suite -->
         <div panel-name="test-xml-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">/private/var/folders/7m/6kqpgpbx1f9bsswddrr_5c_w0000gr/T/testng-eclipse--872263425/testng-customsuite.xml</span>
+            <span class="header-content">/private/var/folders/7m/6kqpgpbx1f9bsswddrr_5c_w0000gr/T/testng-eclipse--970176007/testng-customsuite.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
@@ -161,7 +147,7 @@
 &lt;suite name=&quot;Default suite&quot; guice-stage=&quot;DEVELOPMENT&quot;&gt;
   &lt;test thread-count=&quot;5&quot; name=&quot;Default test&quot; verbose=&quot;2&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;com.test.cases.TestCaseOne&quot;/&gt;
+      &lt;class name=&quot;com.test.cases.TestCaseThree&quot;/&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Default test --&gt;
 &lt;/suite&gt; &lt;!-- Default suite --&gt;
@@ -201,20 +187,16 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(2);
+data.addRows(1);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'Test_002_RegisterUser')
-data.setCell(0, 2, 'com.test.cases.TestCaseOne')
-data.setCell(0, 3, 261048);
-data.setCell(1, 0, 1)
-data.setCell(1, 1, 'Test_001_Register_User')
-data.setCell(1, 2, 'com.test.cases.TestCaseOne')
-data.setCell(1, 3, 13002);
+data.setCell(0, 1, 'Test_003')
+data.setCell(0, 2, 'com.test.cases.TestCaseThree')
+data.setCell(0, 3, 2888);
 window.suiteTableData['Default_suite']= { tableData: data, tableDiv: 'times-div-Default_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 4 minutes</span>
+              <span class="suite-total-time">Total running time: 2 seconds</span>
               <div id="times-div-Default_suite">
               </div> <!-- times-div-Default_suite -->
             </div> <!-- times-div -->
@@ -240,31 +222,19 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">com.test.cases.TestCaseOne</div> <!-- chronological-class-name -->
-              <div class="configuration-method before">
+              <div class="chronological-class-name">com.test.cases.TestCaseThree</div> <!-- chronological-class-name -->
+              <div class="configuration-test before">
                 <span class="method-name">testSetup</span>
                 <span class="method-start">0 ms</span>
-              </div> <!-- configuration-method before -->
+              </div> <!-- configuration-test before -->
               <div class="test-method">
-                <span class="method-name">Test_001_Register_User</span>
-                <span class="method-start">6101 ms</span>
+                <span class="method-name">Test_003</span>
+                <span class="method-start">5958 ms</span>
               </div> <!-- test-method -->
-              <div class="configuration-method after">
+              <div class="configuration-test after">
                 <span class="method-name">testTeardown</span>
-                <span class="method-start">19105 ms</span>
-              </div> <!-- configuration-method after -->
-              <div class="configuration-method before">
-                <span class="method-name">testSetup</span>
-                <span class="method-start">19874 ms</span>
-              </div> <!-- configuration-method before -->
-              <div class="test-method">
-                <span class="method-name">Test_002_RegisterUser</span>
-                <span class="method-start">24646 ms</span>
-              </div> <!-- test-method -->
-              <div class="configuration-method after">
-                <span class="method-name">testTeardown</span>
-                <span class="method-start">285701 ms</span>
-              </div> <!-- configuration-method after -->
+                <span class="method-start">8848 ms</span>
+              </div> <!-- configuration-test after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
       </div> <!-- main-panel-root -->

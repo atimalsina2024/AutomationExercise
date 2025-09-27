@@ -36,6 +36,9 @@ public class SignupLogin extends PageBase{
 	@FindBy(css = "button[data-qa='login-button']")
 	WebElement loginButton;
 	
+	@FindBy(xpath = "//p[text()='Your email or password is incorrect!']")
+	WebElement incorrectEmailOrPasswordErrorMessage;
+	
 	public WebElement getNewUserSignUpElement() {
 		return newUserSignUpElement;
 	}
@@ -52,11 +55,12 @@ public class SignupLogin extends PageBase{
 		this.signupEmail.sendKeys(email);		
 	}
 	
-	public void waitForVisiblityOfElement(WebElement element) {
+	public static void waitForVisiblityOfElement(WebElement element) {
 		waitUtil.waitForElementToBeVisible(element);
 	}
 
 	public WebElement getLoginElement() {
+		waitForVisiblityOfElement(this.loginHeaderElement);
 		return this.loginHeaderElement;
 	}
 
@@ -74,6 +78,11 @@ public class SignupLogin extends PageBase{
 
 	public void clickLoginButton() {
 		this.loginButton.click();
+	}
+	
+	public WebElement getLoginFailErrorElement() {
+		waitForVisiblityOfElement(incorrectEmailOrPasswordErrorMessage);
+		return this.incorrectEmailOrPasswordErrorMessage;
 	}
 	
 	

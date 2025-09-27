@@ -5,7 +5,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
 public class TestBase {
-	protected WebDriver driver;
+	protected static WebDriver driver;
 	
 	public void setup() {
 		FirefoxOptions options = new FirefoxOptions();

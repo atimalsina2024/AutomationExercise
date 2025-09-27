@@ -1,9 +1,12 @@
 package com.test.cases;
 
+import static org.testng.Assert.assertTrue;
+
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import com.page.pages.SignupLogin;
 import com.test.base.TestBase;
 
 public class TestCaseThree extends TestBase{
@@ -30,5 +33,15 @@ public class TestCaseThree extends TestBase{
 //		7. Click 'login' button
 //		8. Verify error 'Your email or password is incorrect!' is visible
 		
+		TestCaseOne.verifyHomePageIsVisibleSuccessfully();
+		TestCaseOne.clickSignUpButton();
+		TestCaseTwo.verifyLoginIsVisible();
+		TestCaseTwo.login("login@test.com", "test2");
+		verifyLoginFailMessage();
+	}
+	
+	public void verifyLoginFailMessage() {
+		boolean result = new SignupLogin(driver).getLoginFailErrorElement().isDisplayed();
+		assertTrue(result);
 	}
 }

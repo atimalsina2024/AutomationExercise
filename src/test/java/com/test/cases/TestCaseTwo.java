@@ -2,7 +2,6 @@ package com.test.cases;
 
 import static org.testng.Assert.assertTrue;
 
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -25,29 +24,33 @@ public class TestCaseTwo extends TestBase{
 		teardown();
 	}
 	
-	@Test
-	public void Test_002_Login_Positive(){
-//		Test Case 2: Login User with correct email and password
-//		1. Launch browser
-//		2. Navigate to url 'http://automationexercise.com'
-		HomePage hp = new HomePage(driver);
-//		3. Verify that home page is visible successfully
-		WebElement homePageHeader = hp.getHomeElement();
-		hp.waitForElementToBeVisible(homePageHeader);
-		assertTrue(hp.isElementSelected(homePageHeader),"Home Page visibility assert fail");
-//		4. Click on 'Signup / Login' button
-		hp.clickSignupLoginButton();
-//		5. Verify 'Login to your account' is visible
+	@Test(priority = 1, description = "positive login scenario")
+	public void Test_002_Login_Positive_02() {
+		TestCaseOne.verifyHomePageIsVisibleSuccessfully();
+		TestCaseOne.clickSignUpButton();
+		verifyLoginIsVisible();
+		login("login@test.com", "test1");
+		verifyLoggedInUsernameIsVisible("usr");
+	}
+	
+	//--------------------
+	//steps
+	//--------------------
+	
+	public static void verifyLoginIsVisible() {
+		boolean rslt = new SignupLogin(driver).getLoginElement().isDisplayed();
+		assertTrue(rslt);
+	}
+	
+	public static void login(String email, String password) {
 		SignupLogin sl = new SignupLogin(driver);
-		WebElement loginElement = sl.getLoginElement();
-		sl.waitForVisiblityOfElement(loginElement);
-		assertTrue(sl.getLoginElementText().equals("Login to your account"),"Login Page visibility assert fail");
-//		6. Enter correct email address and password
-		sl.setLoginEmail("login@test.com");
-		sl.setLoginPassword("test1");
-//		7. Click 'login' button
+		sl.setLoginEmail(email);
+		sl.setLoginPassword(password);
 		sl.clickLoginButton();
-//		8. Verify that 'Logged in as username' is visible
-		assertTrue(hp.getLoggedUserNameText().equals("usr"));
+	}
+	
+	public void verifyLoggedInUsernameIsVisible(String username) {
+		boolean rslt = new HomePage(driver).getLoggedUserNameText().equals(username);
+		assertTrue(rslt);
 	}
 }
