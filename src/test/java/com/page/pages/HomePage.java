@@ -24,6 +24,9 @@ public class HomePage extends PageBase{
 	@FindBy(css = "a[href='/delete_account']")
 	WebElement deleteUser;
 	
+	@FindBy(css = "a[href='/logout']")
+	WebElement logoutButton;
+	
 	public WebElement getHomeElement() {
 		return this.homeButton;
 	}
@@ -53,6 +56,9 @@ public class HomePage extends PageBase{
 	}
 	public void deleteUser() {
 		this.deleteUser.click();
+	}
+	public void userLogout() {
+		this.logoutButton.click();
 	}
 		
 

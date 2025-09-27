@@ -25,7 +25,7 @@ public class TestCaseTwo extends TestBase{
 	}
 	
 	@Test(priority = 1, description = "positive login scenario")
-	public void Test_002_Login_Positive_02() {
+	public static void Test_002_Login_Positive_02() {
 		TestCaseOne.verifyHomePageIsVisibleSuccessfully();
 		TestCaseOne.clickSignUpButton();
 		verifyLoginIsVisible();
@@ -49,7 +49,7 @@ public class TestCaseTwo extends TestBase{
 		sl.clickLoginButton();
 	}
 	
-	public void verifyLoggedInUsernameIsVisible(String username) {
+	public static void verifyLoggedInUsernameIsVisible(String username) {
 		boolean rslt = new HomePage(driver).getLoggedUserNameText().equals(username);
 		assertTrue(rslt);
 	}
