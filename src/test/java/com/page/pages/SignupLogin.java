@@ -6,6 +6,8 @@ import org.openqa.selenium.support.FindBy;
 
 import com.page.base.PageBase;
 
+import utils.WaitUtils;
+
 public class SignupLogin extends PageBase{
 
 	public SignupLogin(WebDriver driver) {
@@ -24,6 +26,9 @@ public class SignupLogin extends PageBase{
 	@FindBy(css = "button[data-qa='signup-button']")
 	WebElement signupButton;
 	
+	@FindBy(xpath = "//p[text()='Email Address already exist!']")
+	WebElement duplicateSignupEmailErrorElement;
+	
 	@FindBy(xpath = "//h2[text()='Login to your account']")
 	WebElement loginHeaderElement;
 	
@@ -37,7 +42,7 @@ public class SignupLogin extends PageBase{
 	WebElement loginButton;
 	
 	@FindBy(xpath = "//p[text()='Your email or password is incorrect!']")
-	WebElement incorrectEmailOrPasswordErrorMessage;
+	WebElement incorrectLoginEmailOrPasswordErrorMessage;
 	
 	public WebElement getNewUserSignUpElement() {
 		return newUserSignUpElement;
@@ -54,13 +59,9 @@ public class SignupLogin extends PageBase{
 	public void enterSignupEmail(String email) {
 		this.signupEmail.sendKeys(email);		
 	}
-	
-	public static void waitForVisiblityOfElement(WebElement element) {
-		waitUtil.waitForElementToBeVisible(element);
-	}
 
 	public WebElement getLoginElement() {
-		waitForVisiblityOfElement(this.loginHeaderElement);
+		WaitUtils.waitForElementToBeVisible(driver, this.loginHeaderElement);
 		return this.loginHeaderElement;
 	}
 
@@ -81,8 +82,13 @@ public class SignupLogin extends PageBase{
 	}
 	
 	public WebElement getLoginFailErrorElement() {
-		waitForVisiblityOfElement(incorrectEmailOrPasswordErrorMessage);
-		return this.incorrectEmailOrPasswordErrorMessage;
+		WaitUtils.waitForElementToBeVisible(driver, this.incorrectLoginEmailOrPasswordErrorMessage);
+		return this.incorrectLoginEmailOrPasswordErrorMessage;
+	}
+	
+	public WebElement getSignupEmailErrorMsgElement() {
+		WaitUtils.waitForElementToBeVisible(driver, duplicateSignupEmailErrorElement);
+		return duplicateSignupEmailErrorElement;
 	}
 	
 	

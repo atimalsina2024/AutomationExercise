@@ -6,6 +6,8 @@ import org.openqa.selenium.support.FindBy;
 
 import com.page.base.PageBase;
 
+import utils.WaitUtils;
+
 public class AccountCreated extends PageBase{
 
 	public AccountCreated(WebDriver driver) {
@@ -19,16 +21,21 @@ public class AccountCreated extends PageBase{
 	WebElement continueButton;
 
 	public WebElement getTitleElement() {
-		waitForElementToBeVisible(this.pageHeader);
+		WaitUtils.waitForElementToBeVisible(driver, this.pageHeader);
+		//waitForElementToBeVisible(this.pageHeader);
 		return this.pageHeader;
 	}
 
+	/*
 	public static void waitForElementToBeVisible(WebElement titleElement) {
-		waitUtil.waitForElementToBeVisible(titleElement);
+		WaitUtils.waitForElementToBeVisible(driver, titleElement);
+		//waitUtil.waitForElementToBeVisible(titleElement);
 	}
+	*/
 
 	public String getTitleText() {
-		waitForElementToBeVisible(this.pageHeader);
+		WaitUtils.waitForElementToBeVisible(driver, this.pageHeader);
+		//waitForElementToBeVisible(this.pageHeader);
 		return this.pageHeader.getText();
 	}
 

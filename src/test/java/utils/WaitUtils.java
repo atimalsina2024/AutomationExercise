@@ -9,14 +9,15 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class WaitUtils {
 
-	private static final int DEFAULT_TIMEOUT = 10;
-	private WebDriverWait wait;
+	//private static final int DEFAULT_TIMEOUT = 10;
+	//private WebDriverWait wait;
 	
-	public WaitUtils(WebDriver driver) {
-		wait = new WebDriverWait(driver,Duration.ofSeconds(DEFAULT_TIMEOUT));
-	}
+	//public WaitUtils(WebDriver driver) {
+		//wait = new WebDriverWait(driver,Duration.ofSeconds(DEFAULT_TIMEOUT));
+	//}
 	
-	public void waitForElementToBeVisible(WebElement element) {
+	public static void waitForElementToBeVisible(WebDriver driver, WebElement element) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.visibilityOf(element));
 	}
 }

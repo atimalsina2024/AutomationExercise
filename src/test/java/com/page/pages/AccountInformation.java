@@ -12,6 +12,8 @@ import org.openqa.selenium.support.ui.Select;
 
 import com.page.base.PageBase;
 
+import utils.WaitUtils;
+
 public class AccountInformation extends PageBase{
 
 	public AccountInformation(WebDriver driver) {
@@ -82,12 +84,15 @@ public class AccountInformation extends PageBase{
 	@FindBy(css = "button[data-qa='create-account']")
 	WebElement createAccountButton;
 	
+	/*
 	public static void waitForElementToBeVisible(WebElement element) {
 		waitUtil.waitForElementToBeVisible(element);
 	}
 	
+	*/
 	public WebElement getPageTitleElement() {
-		 waitForElementToBeVisible(this.pageTitle);
+		WaitUtils.waitForElementToBeVisible(driver,  this.pageTitle); 
+		//waitForElementToBeVisible(this.pageTitle);
 		 return this.pageTitle;
 	}
 	

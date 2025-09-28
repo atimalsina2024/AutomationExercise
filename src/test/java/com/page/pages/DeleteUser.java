@@ -6,6 +6,8 @@ import org.openqa.selenium.support.FindBy;
 
 import com.page.base.PageBase;
 
+import utils.WaitUtils;
+
 public class DeleteUser extends PageBase{
 
 	public DeleteUser(WebDriver driver) {
@@ -22,12 +24,15 @@ public class DeleteUser extends PageBase{
 		return this.deleteHeader;
 	}
 
+	/*
 	public static void waitForElementToBeVisible(WebElement titleElement) {
 		waitUtil.waitForElementToBeVisible(titleElement);
 	}
-
+	*/
+	
 	public String getTitleElementText() {
-		waitForElementToBeVisible(this.deleteHeader);
+		WaitUtils.waitForElementToBeVisible(driver, this.deleteHeader);
+		//waitForElementToBeVisible(this.deleteHeader);
 		return this.deleteHeader.getText();
 	}
 	

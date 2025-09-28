@@ -2,24 +2,24 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-09-27T17:42:31 EDT" name="Default suite" finished-at="2025-09-27T17:42:41 EDT" duration-ms="9414">
+  <suite started-at="2025-09-28T00:08:00 EDT" name="Default suite" finished-at="2025-09-28T00:08:08 EDT" duration-ms="7479">
     <groups>
     </groups>
-    <test started-at="2025-09-27T17:42:31 EDT" name="Default test" finished-at="2025-09-27T17:42:41 EDT" duration-ms="9414">
-      <class name="com.test.cases.TestCaseThree">
-        <test-method is-config="true" signature="testSetup()[pri:0, instance:com.test.cases.TestCaseThree@54c5a2ff]" started-at="2025-09-27T17:42:31 EDT" name="testSetup" finished-at="2025-09-27T17:42:37 EDT" duration-ms="5946" status="PASS">
+    <test started-at="2025-09-28T00:08:00 EDT" name="Default test" finished-at="2025-09-28T00:08:08 EDT" duration-ms="7479">
+      <class name="com.test.cases.TestCaseSeven">
+        <test-method is-config="true" signature="setup()[pri:0, instance:com.test.cases.TestCaseSeven@7526515b]" started-at="2025-09-28T00:08:00 EDT" name="setup" finished-at="2025-09-28T00:08:06 EDT" duration-ms="5298" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testSetup -->
-        <test-method signature="Test_003()[pri:0, instance:com.test.cases.TestCaseThree@54c5a2ff]" started-at="2025-09-27T17:42:37 EDT" name="Test_003" description="Login User with incorrect email and password" finished-at="2025-09-27T17:42:40 EDT" duration-ms="2888" status="PASS">
+        </test-method> <!-- setup -->
+        <test-method signature="TC_007_Verify_Test_Case_Page()[pri:0, instance:com.test.cases.TestCaseSeven@7526515b]" started-at="2025-09-28T00:08:06 EDT" name="TC_007_Verify_Test_Case_Page" description="verify landing on test cases page" finished-at="2025-09-28T00:08:07 EDT" duration-ms="1706" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- Test_003 -->
-        <test-method is-config="true" signature="testTeardown()[pri:0, instance:com.test.cases.TestCaseThree@54c5a2ff]" started-at="2025-09-27T17:42:40 EDT" name="testTeardown" finished-at="2025-09-27T17:42:41 EDT" duration-ms="562" status="PASS">
+        </test-method> <!-- TC_007_Verify_Test_Case_Page -->
+        <test-method is-config="true" signature="teardown()[pri:0, instance:com.test.cases.TestCaseSeven@7526515b]" started-at="2025-09-28T00:08:07 EDT" name="teardown" finished-at="2025-09-28T00:08:08 EDT" duration-ms="458" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testTeardown -->
-      </class> <!-- com.test.cases.TestCaseThree -->
+        </test-method> <!-- teardown -->
+      </class> <!-- com.test.cases.TestCaseSeven -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

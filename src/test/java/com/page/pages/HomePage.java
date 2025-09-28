@@ -6,6 +6,8 @@ import org.openqa.selenium.support.FindBy;
 
 import com.page.base.PageBase;
 
+import utils.WaitUtils;
+
 public class HomePage extends PageBase{
 
 	public HomePage(WebDriver driver) {
@@ -27,6 +29,12 @@ public class HomePage extends PageBase{
 	@FindBy(css = "a[href='/logout']")
 	WebElement logoutButton;
 	
+	@FindBy(css = "a[href='/contact_us']")
+	WebElement contactUsButton;
+	
+	@FindBy(css = "a[href='/test_cases']")
+	WebElement testCaseButton;
+	
 	public WebElement getHomeElement() {
 		return this.homeButton;
 	}
@@ -38,20 +46,22 @@ public class HomePage extends PageBase{
 	}
 	
 	public WebElement getLoggedUserNameElement() {
-		waitForElementToBeVisible(this.loggedUserName);
+		WaitUtils.waitForElementToBeVisible(driver, this.loggedUserName);
+		//waitForElementToBeVisible(this.loggedUserName);
 		return this.loggedUserName;
 	}
 	
 	public void clickSignupLoginButton() {
 		this.logonSignupButton.click();
 	}
-	
+	/*
 	public static void waitForElementToBeVisible(WebElement element) {
 		waitUtil.waitForElementToBeVisible(element);
 	}
-	
+	*/
 	public String getLoggedUserNameText() {
-		waitForElementToBeVisible(this.loggedUserName);
+		WaitUtils.waitForElementToBeVisible(driver, this.loggedUserName);
+		//waitForElementToBeVisible(this.loggedUserName);
 		return this.loggedUserName.getText();
 	}
 	public void deleteUser() {
@@ -59,6 +69,16 @@ public class HomePage extends PageBase{
 	}
 	public void userLogout() {
 		this.logoutButton.click();
+	}
+	
+	public ContactUsPage clickContactUsButton() {
+		this.contactUsButton.click();
+		return new ContactUsPage(driver);
+	}
+	
+	public TestCasesPage clickTestCaseButton() {
+		this.testCaseButton.click();
+		return new TestCasesPage(driver);
 	}
 		
 

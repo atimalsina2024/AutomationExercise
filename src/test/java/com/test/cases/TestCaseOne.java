@@ -56,12 +56,12 @@ public class TestCaseOne extends TestBase{
 		new HomePage(driver).clickSignupLoginButton();
 	}
 	
-	public void verifySignupInformationIsVisible() {
+	public static void verifySignupInformationIsVisible() {
 		boolean signUpDisplayed = new SignupLogin(driver).getNewUserSignUpElement().isDisplayed();
 		assertTrue(signUpDisplayed, "Verify 'New User Signup!' is visible failed");
 	}
 	
-	public void signUp(String user, String email) {
+	public static void signUp(String user, String email) {
 		SignupLogin sl = new SignupLogin(driver);
 		sl.enterSignupName(user);
 		sl.enterSignupEmail(email);
