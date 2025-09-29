@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import com.page.base.PageBase;
 
+import utils.JavascriptUtils;
 import utils.WaitUtils;
 
 public class AccountInformation extends PageBase{
@@ -131,7 +132,7 @@ public class AccountInformation extends PageBase{
 			this.newsLetter.click();
 		}catch(ElementClickInterceptedException e) {
 			e.printStackTrace();
-			js.javascriptScrollToView(this.newsLetter);
+			JavascriptUtils.javascriptScrollToView(driver, this.newsLetter);
 			this.newsLetter.click();
 		}		
 	}
@@ -190,7 +191,7 @@ public class AccountInformation extends PageBase{
 		try {
 			this.ctry.click();
 		}catch(ElementClickInterceptedException e) {
-			js.javascriptScrollToView(this.ctry);
+			JavascriptUtils.javascriptScrollToView(driver, this.ctry);
 			this.ctry.click();
 		}
 		

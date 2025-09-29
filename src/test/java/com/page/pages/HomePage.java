@@ -35,6 +35,11 @@ public class HomePage extends PageBase{
 	@FindBy(css = "a[href='/test_cases']")
 	WebElement testCaseButton;
 	
+	@FindBy(css = "a[href='/products']")
+	WebElement productButton;
+	
+	private WebElement subscription;
+	
 	public WebElement getHomeElement() {
 		return this.homeButton;
 	}
@@ -47,21 +52,15 @@ public class HomePage extends PageBase{
 	
 	public WebElement getLoggedUserNameElement() {
 		WaitUtils.waitForElementToBeVisible(driver, this.loggedUserName);
-		//waitForElementToBeVisible(this.loggedUserName);
 		return this.loggedUserName;
 	}
 	
 	public void clickSignupLoginButton() {
 		this.logonSignupButton.click();
 	}
-	/*
-	public static void waitForElementToBeVisible(WebElement element) {
-		waitUtil.waitForElementToBeVisible(element);
-	}
-	*/
+
 	public String getLoggedUserNameText() {
 		WaitUtils.waitForElementToBeVisible(driver, this.loggedUserName);
-		//waitForElementToBeVisible(this.loggedUserName);
 		return this.loggedUserName.getText();
 	}
 	public void deleteUser() {
@@ -79,6 +78,11 @@ public class HomePage extends PageBase{
 	public TestCasesPage clickTestCaseButton() {
 		this.testCaseButton.click();
 		return new TestCasesPage(driver);
+	}
+	
+	public ProductPage clickProductButton() {
+		this.productButton.click();
+		return new ProductPage(driver);
 	}
 		
 
