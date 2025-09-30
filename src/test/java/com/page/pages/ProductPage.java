@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 import com.page.base.PageBase;
@@ -26,6 +27,9 @@ public class ProductPage extends PageBase{
 	
 	@FindBy(id = "submit_search")
 	private WebElement searchButton;
+	
+	@FindBy(css = "div.product-overlay a[data-product-id='1']")
+	private WebElement secondProductAddToCartOnHover;
 	
 	public ProductPage(WebDriver driver) {
 		super(driver);
@@ -59,6 +63,17 @@ public class ProductPage extends PageBase{
 	public SearchProductPage clickSearchButton() {
 		this.searchButton.click();
 		return new SearchProductPage(driver);
+	}
+	
+	public ProductPage hoverOnAnElement() {
+		Actions action = new Actions(driver);
+		action.moveToElement(secondProductAddToCartOnHover).perform();
+		return this;
+	}
+	
+	public DialogBoxPage clickAddToCart() {		
+		this.secondProductAddToCartOnHover.click();
+		return new DialogBoxPage(driver);
 	}
 
 }

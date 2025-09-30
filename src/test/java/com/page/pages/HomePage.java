@@ -1,11 +1,13 @@
 package com.page.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import com.page.base.PageBase;
 
+import utils.JavascriptUtils;
 import utils.WaitUtils;
 
 public class HomePage extends PageBase{
@@ -38,7 +40,21 @@ public class HomePage extends PageBase{
 	@FindBy(css = "a[href='/products']")
 	WebElement productButton;
 	
+	@FindBy(css = "div.single-widget h2")
 	private WebElement subscription;
+	
+	@FindBy(id = "susbscribe_email")
+	private WebElement subscriptionEmail;
+	
+	@FindBy(id = "subscribe")
+	private WebElement subscriptionButton;
+	
+	//@FindBy(className = "alert-success")
+	private String subscriptionConfirmationMessageElementLocator = "alert-success";
+	
+	@FindBy(css = "a[href='/view_cart']")
+	private WebElement cartButton;
+	
 	
 	public WebElement getHomeElement() {
 		return this.homeButton;
@@ -84,6 +100,33 @@ public class HomePage extends PageBase{
 		this.productButton.click();
 		return new ProductPage(driver);
 	}
+	
+	public WebElement scrollToSubscription() {
+		JavascriptUtils.javascriptScrollToView(driver, this.subscription);
+		return this.subscription;
+	}
+	
+	public HomePage enterSubscriptionEmailAddress(String email) {
+		this.subscriptionEmail.sendKeys(email);
+		return this;
+	}
+	
+	public HomePage clickSubscribeButton() {
+		this.subscriptionButton.click();;
+		return this;
+	}
+	
+	public WebElement getSubscriptionConfirmationMessage() {
+		return WaitUtils.waitForToastElement(driver, By.className(subscriptionConfirmationMessageElementLocator));
+		//return this.subscriptionConfirmationMessageElement;
+	}
+	
+	public CartPage clickCartButton() {
+		this.cartButton.click();
+		return new CartPage(driver);
+	}
+	
+	
 		
 
 }
