@@ -1,8 +1,8 @@
 package com.page.pages;
 
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebDriver;
@@ -15,100 +15,92 @@ import com.page.base.PageBase;
 import utils.JavascriptUtils;
 import utils.WaitUtils;
 
-public class AccountInformation extends PageBase{
+public class AccountInformation extends PageBase {
 
 	public AccountInformation(WebDriver driver) {
 		super(driver);
 	}
-	
+
 	@FindBy(xpath = "//b[text()='Enter Account Information']")
-	WebElement pageTitle;
-	
+	private WebElement pageTitle;
+
 	@FindBy(id = "id_gender1")
-	WebElement genderMale;
-	
+	private WebElement genderMale;
+
 	@FindBy(id = "id_gender2")
-	WebElement genderFemale;
-	
+	private WebElement genderFemale;
+
 	@FindBy(id = "password")
-	WebElement password;
-	
+	private WebElement password;
+
 	@FindBy(id = "days")
-	WebElement day;	
-	Select dobDays = new Select(day);
-	
+	WebElement day;
+	private Select dobDays = new Select(day);
+
 	@FindBy(id = "months")
-	WebElement month;	
-	Select dobMonth = new Select(month);
-	
+	WebElement month;
+	private Select dobMonth = new Select(month);
+
 	@FindBy(id = "years")
-	WebElement year;	
-	Select dobYear = new Select(year);
-	
+	WebElement year;
+	private Select dobYear = new Select(year);
+
 	@FindBy(id = "newsletter")
-	WebElement newsLetter;
+	private WebElement newsLetter;
 
 	@FindBy(id = "optin")
-	WebElement specialOfferOptIn;
+	private WebElement specialOfferOptIn;
 
 	@FindBy(id = "first_name")
-	WebElement signUpFirstName;
-	
+	private WebElement signUpFirstName;
+
 	@FindBy(id = "last_name")
-	WebElement signUpLastName;
-	
+	private WebElement signUpLastName;
+
 	@FindBy(id = "company")
-	WebElement signUpCompany;
-	
+	private WebElement signUpCompany;
+
 	@FindBy(id = "address1")
-	WebElement streetAddressOne;
-	
+	private WebElement streetAddressOne;
+
 	@FindBy(id = "address2")
-	WebElement streetAddressTwo;
-	
+	private WebElement streetAddressTwo;
+
 	@FindBy(id = "country")
-	WebElement ctry;
+	private WebElement ctry;
 	Select country = new Select(ctry);
-	
+
 	@FindBy(id = "state")
-	WebElement state;
-	
+	private WebElement state;
+
 	@FindBy(id = "city")
-	WebElement city;
-	
+	private WebElement city;
+
 	@FindBy(id = "zipcode")
-	WebElement zipcode;
-	
+	private WebElement zipcode;
+
 	@FindBy(id = "mobile_number")
-	WebElement signUpMobile;
-	
+	private WebElement signUpMobile;
+
 	@FindBy(css = "button[data-qa='create-account']")
-	WebElement createAccountButton;
-	
-	/*
-	public static void waitForElementToBeVisible(WebElement element) {
-		waitUtil.waitForElementToBeVisible(element);
-	}
-	
-	*/
+	private WebElement createAccountButton;
+
 	public WebElement getPageTitleElement() {
-		WaitUtils.waitForElementToBeVisible(driver,  this.pageTitle); 
-		//waitForElementToBeVisible(this.pageTitle);
-		 return this.pageTitle;
+		WaitUtils.waitForElementToBeVisible(driver, this.pageTitle);
+		return this.pageTitle;
 	}
-	
+
 	public String getPageTitleText() {
 		return pageTitle.getText();
 	}
 
 	public void setTitle(String title) {
-		if(title.toLowerCase().equals("male")) {
+		if (title.toLowerCase().equals("male")) {
 			this.genderMale.click();
-		}
-		else {
+		} else {
 			this.genderFemale.click();
 		}
-		
+
 	}
 
 	public void setPassword(String password) {
@@ -121,7 +113,7 @@ public class AccountInformation extends PageBase{
 		String monthString = dob.format(DateTimeFormatter.ofPattern("MMMM"));
 		String dayString = Integer.toString(dob.getDayOfMonth());
 		String yearString = Integer.toString(dob.getYear());
-		
+
 		this.dobDays.selectByValue(dayString);
 		this.dobMonth.selectByVisibleText(monthString);
 		this.dobYear.selectByValue(yearString);
@@ -130,33 +122,34 @@ public class AccountInformation extends PageBase{
 	public void signUpForNewsLetter() {
 		try {
 			this.newsLetter.click();
-		}catch(ElementClickInterceptedException e) {
+		} catch (ElementClickInterceptedException e) {
 			e.printStackTrace();
 			JavascriptUtils.javascriptScrollToView(driver, this.newsLetter);
 			this.newsLetter.click();
-		}		
+		}
 	}
 
 	public void receiveSpecialOffers() {
-		this.specialOfferOptIn.click();		
+		this.specialOfferOptIn.click();
 	}
 
 	public void setFirstName(String fname) {
-		this.signUpFirstName.sendKeys(fname);;
+		this.signUpFirstName.sendKeys(fname);
+		;
 	}
 
 	public void setLastName(String lname) {
-		this.signUpLastName.sendKeys(lname);		
+		this.signUpLastName.sendKeys(lname);
 	}
 
 	public void setCompany(String company) {
 		this.signUpCompany.sendKeys(company);
-		
+
 	}
 
 	public void setStreetAddressOne(String streetAddressOne) {
 		this.streetAddressOne.sendKeys(streetAddressOne);
-		
+
 	}
 
 	public void setStreetAddressTwo(String apt) {
@@ -164,41 +157,56 @@ public class AccountInformation extends PageBase{
 	}
 
 	public void setCountry(String country) {
+		clickCountryDropdown();
 		this.country.selectByVisibleText(country);
 	}
 
 	public void setState(String state) {
-		this.state.sendKeys(state);	
+		this.state.sendKeys(state);
 	}
 
 	public void setCity(String city) {
-		this.city.sendKeys(city);		
+		this.city.sendKeys(city);
 	}
 
 	public void setZipcode(String zipcode) {
-		this.zipcode.sendKeys(zipcode);	
+		this.zipcode.sendKeys(zipcode);
 	}
 
 	public void setMobileNumber(String mobile) {
-		this.signUpMobile.sendKeys(mobile);	
+		this.signUpMobile.sendKeys(mobile);
 	}
 
 	public void clickCreateAccountButton() {
-		this.createAccountButton.click();	
+		this.createAccountButton.click();
 	}
 
 	public void clickCountryDropdown() {
 		try {
 			this.ctry.click();
-		}catch(ElementClickInterceptedException e) {
+		} catch (ElementClickInterceptedException e) {
 			JavascriptUtils.javascriptScrollToView(driver, this.ctry);
 			this.ctry.click();
 		}
-		
 	}
-	
-	
-	
-	
+
+	public AccountInformation fillInformation(HashMap<String,String> accountInfo) {
+		setTitle(accountInfo.get("title"));
+		setPassword(accountInfo.get("password"));
+		setDataOfBirth(accountInfo.get("dob"));
+		signUpForNewsLetter();
+		receiveSpecialOffers();
+		setFirstName(accountInfo.get("firstname"));
+		setLastName(accountInfo.get("lastname"));
+		setCompany(accountInfo.get("company"));
+		setStreetAddressOne(accountInfo.get("addressOne"));
+		setStreetAddressTwo(accountInfo.get("apt"));
+		setCountry(accountInfo.get("country"));
+		setState(accountInfo.get("state"));
+		setCity(accountInfo.get("city"));
+		setZipcode(accountInfo.get("zipcode"));
+		setMobileNumber(accountInfo.get("mobile"));
+		return this;
+	}
 
 }

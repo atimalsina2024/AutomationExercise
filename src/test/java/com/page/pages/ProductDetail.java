@@ -1,5 +1,6 @@
 package com.page.pages;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -25,6 +26,12 @@ public class ProductDetail extends PageBase{
 	
 	@FindBy(xpath = "//p[b[text()='Brand:']]")
 	WebElement brand;
+	
+	@FindBy(id = "quantity")
+	WebElement quantity;
+	
+	@FindBy(css = "button.cart")
+	WebElement addToCartButton;
 	
 	public ProductDetail(WebDriver driver) {
 		super(driver);
@@ -52,6 +59,18 @@ public class ProductDetail extends PageBase{
 
 	public WebElement getBrand() {
 		return brand;
+	}
+	// min quantity is 1, thus looping qty-1 times
+	public ProductDetail increaseQuantity(int qty) {
+		for(int i=0; i<qty-1; i++) {
+			this.quantity.sendKeys(Keys.ARROW_UP);
+		}
+		return this;
+	}
+	
+	public DialogBoxPage clickAddToCartButton() {
+		this.addToCartButton.click();
+		return new DialogBoxPage(driver);
 	}
 
 

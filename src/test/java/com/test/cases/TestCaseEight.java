@@ -23,17 +23,17 @@ public class TestCaseEight extends TestBase{
 //		8. User is landed to product detail page
 //		9. Verify that detail detail is visible: product name, category, price, availability, condition, brand
 		TestCaseOne.verifyHomePageIsVisibleSuccessfully();
-		verifyLandidriveroductsPage();
+		verifyLandingOnProductsPage();
 		clickViewProductDetailAndVerifyProductDetails();		
 	}
-	public static void verifyLandidriveroductsPage() {
+	public static void verifyLandingOnProductsPage() {
 		String header = new HomePage(driver)
 				.clickProductButton()
 				.getProductPageHeader()
 				.getText();
 		Assert.assertEquals(header, "ALL PRODUCTS", "landing on Product page failed");
 	}
-	public void clickViewProductDetailAndVerifyProductDetails() {
+	public static void clickViewProductDetailAndVerifyProductDetails() {
 		ProductDetail productDetail = new ProductPage(driver).clickViewProduct();
 		boolean productName = productDetail.getProductName().getText().equals("Blue Top");
 		boolean productCategory = productDetail.getCategory().getText().replace("Category: ", "").trim().equals("Women > Tops");

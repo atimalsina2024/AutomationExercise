@@ -1,5 +1,8 @@
 package com.page.pages;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -23,8 +26,23 @@ public class CartPage extends PageBase{
 	
 	private String subscriptionConfirmationMessageLocator = "alert-success";
 	
-	@FindBy()
-	private WebElement singleDescription;
+	@FindBy(css = "td.cart_description a")
+	private List<WebElement> productNamesofProductsInCart;
+	
+	@FindBy(css = "td.cart_price p")
+	private List<WebElement> price;
+	
+	@FindBy(css = "td.cart_quantity button")
+	private List<WebElement> quantity;
+	
+	@FindBy(css = "td.cart_total p")
+	private List<WebElement> total;
+	
+	@FindBy(css = "td.cart_delete a")
+	private List<WebElement> deleteButton;
+	
+	@FindBy(css = "a.check_out")
+	private WebElement checkoutButton;
 	
 	public CartPage(WebDriver driver) {
 		super(driver);
@@ -48,6 +66,42 @@ public class CartPage extends PageBase{
 	public WebElement getSubscriptionConfirmationMessage() {
 		return WaitUtils.waitForToastElement(driver, By.className(subscriptionConfirmationMessageLocator));
 	}
+	
+	public List<String> getProductNames(){
+		return this.productNamesofProductsInCart.stream()
+		.map(element -> element.getText())
+		.collect(Collectors.toList());
+	}
+	
+	public List<String> getProductPrice(){
+		return this.price.stream()
+		.map(element -> element.getText())
+		.collect(Collectors.toList());
+	}
+	
+	public List<String> getProductQuantity(){
+		return this.quantity.stream()
+		.map(element -> element.getText())
+		.collect(Collectors.toList());
+	}
+	
+	public List<String> getTotalPrice(){
+		return this.total.stream()
+		.map(WebElement::getText)
+		.collect(Collectors.toList());
+	}
+	
+	public DialogBoxPage clickCheckOutButton() {
+		this.checkoutButton.click();
+		return new DialogBoxPage(driver);
+	}
+	
+	public CartPage proceedToCheckOutWhenLoggedIn() {
+		this.checkoutButton.click();
+		return this;
+	}
+	
+	
 	
 	
 

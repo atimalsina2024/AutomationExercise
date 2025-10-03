@@ -24,7 +24,7 @@ public class TestCaseNine extends TestBase{
 	@Test(description = "search products")
 	public void Test_009_Search_Products() {
 		TestCaseOne.verifyHomePageIsVisibleSuccessfully();
-		TestCaseEight.verifyLandidriveroductsPage();
+		TestCaseEight.verifyLandingOnProductsPage();
 		searchProductAndVerifySearchedProductsIsVisible();
 		verifyProductRelatedToSearch();
 	}

@@ -48,16 +48,18 @@ public class SignupLogin extends PageBase{
 		return newUserSignUpElement;
 	}
 
-	public void enterSignupName(String name) {
-		this.signupName.sendKeys(name);		
+	public SignupLogin enterSignupName(String name) {
+		this.signupName.sendKeys(name);
+		return this;
 	}
 
 	public void clickSignupButton() {
-		this.signupButton.click();		
+		this.signupButton.click();	
 	}
 
-	public void enterSignupEmail(String email) {
-		this.signupEmail.sendKeys(email);		
+	public SignupLogin enterSignupEmail(String email) {
+		this.signupEmail.sendKeys(email);
+		return this;
 	}
 
 	public WebElement getLoginElement() {

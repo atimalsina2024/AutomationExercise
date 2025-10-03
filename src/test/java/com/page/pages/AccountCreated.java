@@ -22,25 +22,17 @@ public class AccountCreated extends PageBase{
 
 	public WebElement getTitleElement() {
 		WaitUtils.waitForElementToBeVisible(driver, this.pageHeader);
-		//waitForElementToBeVisible(this.pageHeader);
 		return this.pageHeader;
 	}
 
-	/*
-	public static void waitForElementToBeVisible(WebElement titleElement) {
-		WaitUtils.waitForElementToBeVisible(driver, titleElement);
-		//waitUtil.waitForElementToBeVisible(titleElement);
-	}
-	*/
-
 	public String getTitleText() {
 		WaitUtils.waitForElementToBeVisible(driver, this.pageHeader);
-		//waitForElementToBeVisible(this.pageHeader);
 		return this.pageHeader.getText();
 	}
 
-	public void clickContinueButton() {
+	public HomePage clickContinueButton() {
 		this.continueButton.click();
+		return new HomePage(driver);
 	}
 	
 
