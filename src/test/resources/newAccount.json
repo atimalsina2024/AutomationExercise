@@ -3,15 +3,17 @@
   "gender": "Male",	
   "firstName": "John",
   "lastName": "Doe",
-  "email": "john.doe@example.com",
+  "email": "john.21.doe@example.com",
   "password": "StrongP@ss123",
   "dob":"1975-12-25",
-  "company": "ABC Company"
+  "mobile":"2102102100",
+  "company": "ABC Company",
   "address": {
     "street": "123 Main Street",
     "apartment": "Apt 4B",
     "city": "New York",
     "zip": "10001",
+    "state":"New York",
     "country":"United States"
   },
   "creditCard": {

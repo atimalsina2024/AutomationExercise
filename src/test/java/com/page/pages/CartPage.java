@@ -5,7 +5,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -17,6 +20,8 @@ import utils.WaitUtils;
 
 public class CartPage extends PageBase{
 
+	private static final Logger logger = LogManager.getLogger(CartPage.class);
+	
 	@FindBy(css = "div.single-widget h2")
 	private WebElement subscription;
 	
@@ -52,7 +57,7 @@ public class CartPage extends PageBase{
 	@FindBy(id = "address_invoice")
 	private WebElement billingAddress;
 	
-	@FindBy(id = "ordermsg")
+	@FindBy(name = "message")
 	private WebElement orderMessage;
 	
 	@FindBy(className = "check_out")
@@ -117,7 +122,7 @@ public class CartPage extends PageBase{
 	//convert address WebElement to Map
 	public Map<String, String> addressUtility(WebElement addressElement) {
 		Map<String, String> addressMap= new HashMap<>();
-		addressMap.put("name", addressElement.findElement(By.className("address_firstname address_lastname")).getText());
+		addressMap.put("name", addressElement.findElement(By.className("address_firstname")).getText());
 		addressMap.put("streetAddress", addressElement
 				.findElements(By.className("address_address1"))
 				.stream()
@@ -125,7 +130,7 @@ public class CartPage extends PageBase{
 				.collect(Collectors.joining(" ")));
 		addressMap.put("cityStateZipcode", addressElement.findElement(By.className("address_state_name")).getText());
 		addressMap.put("country", addressElement.findElement(By.className("address_country_name")).getText());
-		addressMap.put("phone", addressElement.findElement(By.className("2102102233")).getText());
+		addressMap.put("phone", addressElement.findElement(By.className("address_phone")).getText());
 		return addressMap;
 	}
 	
@@ -138,7 +143,15 @@ public class CartPage extends PageBase{
 	}
 	
 	public CartPage setOrderMessage(String msg) {
-		this.orderMessage.sendKeys(msg);
+		try {
+			this.orderMessage.sendKeys(msg);
+		}catch(ElementNotInteractableException e) {
+			logger.error("ElementNotInteractableException on Cart Order message");
+			e.printStackTrace();
+			JavascriptUtils.javascriptScrollToView(driver, this.orderMessage);
+			this.orderMessage.sendKeys(msg);
+		}
+		
 		return this;
 	}
 	

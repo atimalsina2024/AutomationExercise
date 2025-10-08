@@ -5,6 +5,7 @@ public class Address {
 	private String street;
 	private String apt;
 	private String city;
+	private String state;
 	private String Zip;
 	private String country;
 	
@@ -37,6 +38,12 @@ public class Address {
 	}
 	public void setCountry(String country) {
 		this.country = country;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
 	}
 	
 

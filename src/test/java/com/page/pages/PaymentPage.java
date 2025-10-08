@@ -1,7 +1,6 @@
 package com.page.pages;
 
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,7 +9,6 @@ import com.page.base.PageBase;
 import com.test.models.CreditCard;
 import com.test.models.ExpirationDate;
 
-import utils.WaitUtils;
 
 public class PaymentPage extends PageBase{
 
@@ -32,7 +30,8 @@ public class PaymentPage extends PageBase{
 	@FindBy(id = "submit")
 	private WebElement payAndConfirmButton;
 	
-	private By successAlert = By.cssSelector(".alert-success");
+	@FindBy(xpath = "//p[contains(text(),'Congratulations!')]")
+	private WebElement successMessage;
 	
 	public PaymentPage(WebDriver driver) {
 		super(driver);
@@ -76,8 +75,8 @@ public class PaymentPage extends PageBase{
 		return this;
 	}
 	
-	public WebElement getSuccessToastMessage() {
-		return WaitUtils.waitForToastElement(driver, successAlert);
+	public WebElement getSuccessMessage() {
+		return this.successMessage;
 	}
 	
 

@@ -1,5 +1,8 @@
 package com.page.pages;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,6 +13,7 @@ import utils.WaitUtils;
 
 public class AccountCreated extends PageBase{
 
+	private static final Logger logger = LogManager.getLogger(AccountCreated.class);
 	public AccountCreated(WebDriver driver) {
 		super(driver);
 	}
@@ -31,7 +35,13 @@ public class AccountCreated extends PageBase{
 	}
 
 	public HomePage clickContinueButton() {
-		this.continueButton.click();
+		try {
+			this.continueButton.click();
+		}
+		catch(ElementNotInteractableException e) {
+			logger.error("ElementNotInteractableException on continue");
+		}
+		//this.continueButton.click();
 		return new HomePage(driver);
 	}
 	

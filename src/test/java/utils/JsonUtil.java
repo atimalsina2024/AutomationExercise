@@ -28,7 +28,8 @@ public class JsonUtil {
 			customer.setPassword((String)jsonObject.get("password"));
 			customer.setDob((String)jsonObject.get("dob"));			
 			customer.setTitle((String)jsonObject.get("title"));
-			customer.setCompany((String)jsonObject.get("company"));			
+			customer.setCompany((String)jsonObject.get("company"));	
+			customer.setMobile((String)jsonObject.get("mobile"));
 			//address
 			JSONObject addressObject = (JSONObject) jsonObject.get("address");
 			Address address = new Address();
@@ -36,6 +37,7 @@ public class JsonUtil {
 			address.setApt((String)addressObject.get("apartment"));			
 			address.setCity((String)addressObject.get("city"));
 			address.setZip((String)addressObject.get("zip"));
+			address.setState((String)addressObject.get("state"));
 			address.setCountry((String)addressObject.get("country"));
 			customer.setAddress(address);
 			//cc info

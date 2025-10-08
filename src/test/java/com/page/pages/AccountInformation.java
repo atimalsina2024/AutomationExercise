@@ -3,6 +3,8 @@ package com.page.pages;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -18,10 +20,8 @@ import utils.WaitUtils;
 
 public class AccountInformation extends PageBase {
 
-	public AccountInformation(WebDriver driver) {
-		super(driver);
-	}
-
+	private static final Logger logger = LogManager.getLogger(AccountInformation.class);
+	
 	@FindBy(xpath = "//b[text()='Enter Account Information']")
 	private WebElement pageTitle;
 
@@ -85,6 +85,10 @@ public class AccountInformation extends PageBase {
 
 	@FindBy(css = "button[data-qa='create-account']")
 	private WebElement createAccountButton;
+	
+	public AccountInformation(WebDriver driver) {
+		super(driver);
+	}
 
 	public WebElement getPageTitleElement() {
 		WaitUtils.waitForElementToBeVisible(driver, this.pageTitle);
@@ -96,7 +100,7 @@ public class AccountInformation extends PageBase {
 	}
 
 	public void setTitle(String title) {
-		if (title.toLowerCase().equals("male")) {
+		if (title.toLowerCase().equals("mr")) {
 			this.genderMale.click();
 		} else {
 			this.genderFemale.click();
@@ -178,6 +182,7 @@ public class AccountInformation extends PageBase {
 		setStreetAddressOne(address.getStreet());
 		setStreetAddressTwo(address.getApt());
 		setCity(address.getCity());
+		setState(address.getState());
 		setZipcode(address.getZip());
 	}
 
@@ -186,7 +191,15 @@ public class AccountInformation extends PageBase {
 	}
 
 	public void clickCreateAccountButton() {
-		this.createAccountButton.click();
+		try {
+			this.createAccountButton.click();
+		}catch(ElementClickInterceptedException e) {
+			logger.error("ElementClickInterceptedException on createAccountButton");
+			logger.info("scrolling it to view");
+			JavascriptUtils.javascriptScrollToView(driver, createAccountButton);
+			this.createAccountButton.click();
+		}
+		
 	}
 
 	public void clickCountryDropdown() {

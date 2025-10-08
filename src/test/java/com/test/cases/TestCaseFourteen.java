@@ -2,6 +2,8 @@ package com.test.cases;
 
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -19,6 +21,7 @@ import utils.JsonUtil;
 public class TestCaseFourteen extends TestBase {
 	CustomerInfo customer;
 	String msg = "message";
+	private static final Logger logger = LogManager.getLogger(TestCaseFourteen.class);
 
 //✅ Test Case 14: Place Order: Register while Checkout
 //
@@ -50,31 +53,42 @@ public class TestCaseFourteen extends TestBase {
 		TestCaseTwelve.verifyBothProductsAreAddedToCart();
 		TestCaseTwelve.verifyPriceQuantityAndTotalPrice(1);
 		getCustomerData();
-		proceedToCheckOutAndRegisterNewAccount(customer.getFirstName(), customer.getEmail());
+		proceedToCheckOutAndRegisterNewAccount(customer.getEmail(), customer.getFirstName());
 		fillOutAccountInformationForNewAccount();
 		verifyAccountCreationAndVerifyUserName();
 		proceedTocart();
-		verifyShippingAndBillingAddress(customer.getAddress().getStreet(), customer.getAddress().getStreet());
+		String billingAddress = customer.getCompany().concat(" ")
+				.concat(customer.getAddress().getStreet().concat(" ")
+				.concat(customer.getAddress().getApt()));
+		String shippingAddress = customer.getCompany().concat(" ")
+				.concat(customer.getAddress().getStreet().concat(" ")
+				.concat(customer.getAddress().getApt()));
+		verifyShippingAndBillingAddress(billingAddress,shippingAddress);
 		addMessagePlaceOrderAndVerifySuccessMessage(msg, customer.getCreditCard());
+		deleteAccount();
 	}
 
 	public void getCustomerData() {
+		logger.info("getCustomerData Entry");
 		customer = JsonUtil.parseAcctInfoJson(
 				"/Users/work/eclipse-workspace/AutomationExercise/src/test/resources/newAccount.json");
 	}
 
 	public void proceedToCheckOutAndRegisterNewAccount(String email, String name) {
+		logger.info("proceedToCheckOutAndRegisterNewAccount Entry");
 		new CartPage(driver).clickCheckOutButton().clickLoginRegisterButton().enterSignupEmail(email)
 				.enterSignupName(name).clickSignupButton();
 	}
 
 	public void fillOutAccountInformationForNewAccount() {
+		logger.info("fillOutAccountInformationForNewAccount Entry");
 		new AccountInformation(driver).fillInformation(customer).clickCreateAccountButton();
 	}
 
 	public void verifyAccountCreationAndVerifyUserName() {
+		logger.info("verifyAccountCreationAndVerifyUserName entry");
 		AccountCreated ac = new AccountCreated(driver);
-		boolean acctCreated = ac.getTitleText().toUpperCase().equals("Account Created!");
+		boolean acctCreated = ac.getTitleText().toUpperCase().equals("ACCOUNT CREATED!");
 		Assert.assertTrue(acctCreated);
 		boolean userName = ac.clickContinueButton().getLoggedUserNameElement().getText()
 				.equals(customer.getFirstName());
@@ -82,10 +96,12 @@ public class TestCaseFourteen extends TestBase {
 	}
 
 	public void proceedTocart() {
+		logger.info("proceedTocart entry");
 		new HomePage(driver).clickCartButton().proceedToCheckOutWhenLoggedIn();
 	}
 
 	public void verifyShippingAndBillingAddress(String billingAdd, String shippingAdd) {
+		logger.info("verifyShippingAndBillingAddress entry");
 		CartPage cp = new CartPage(driver);
 		Map<String, String> billingAddress = cp.getBillingAddress();
 		Map<String, String> shippingAddress = cp.getDeliveryAddress();
@@ -94,14 +110,16 @@ public class TestCaseFourteen extends TestBase {
 	}
 
 	public void addMessagePlaceOrderAndVerifySuccessMessage(String msg, CreditCard card) {
+		logger.info("addMessagePlaceOrderAndVerifySuccessMessage entry");
 		boolean successMsg = new CartPage(driver).setOrderMessage(msg).clickCheckoutButton().fillPaymentInfo(card)
-				.clickPaymentButton().getSuccessToastMessage().getText()
-				.equals("Your order has been placed successfully!");
+				.clickPaymentButton().getSuccessMessage().getText()
+				.equals("Congratulations! Your order has been confirmed!");
 
 		Assert.assertTrue(successMsg);
 	}
 
 	public void deleteAccount() {
+		logger.info("deleteAccount entry");
 		boolean acctDeletion = new OrderPlaced(driver).clickContinueButton().deleteUser().getTitleElement().getText()
 				.equals("ACCOUNT DELETED!");
 
