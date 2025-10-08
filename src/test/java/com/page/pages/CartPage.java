@@ -1,6 +1,8 @@
 package com.page.pages;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.openqa.selenium.By;
@@ -43,6 +45,18 @@ public class CartPage extends PageBase{
 	
 	@FindBy(css = "a.check_out")
 	private WebElement checkoutButton;
+	
+	@FindBy(id = "address_delivery")
+	private WebElement deliverAddress;
+	
+	@FindBy(id = "address_invoice")
+	private WebElement billingAddress;
+	
+	@FindBy(id = "ordermsg")
+	private WebElement orderMessage;
+	
+	@FindBy(className = "check_out")
+	private WebElement placeOrderButton;
 	
 	public CartPage(WebDriver driver) {
 		super(driver);
@@ -100,7 +114,38 @@ public class CartPage extends PageBase{
 		this.checkoutButton.click();
 		return this;
 	}
+	//convert address WebElement to Map
+	public Map<String, String> addressUtility(WebElement addressElement) {
+		Map<String, String> addressMap= new HashMap<>();
+		addressMap.put("name", addressElement.findElement(By.className("address_firstname address_lastname")).getText());
+		addressMap.put("streetAddress", addressElement
+				.findElements(By.className("address_address1"))
+				.stream()
+				.map(WebElement::getText)
+				.collect(Collectors.joining(" ")));
+		addressMap.put("cityStateZipcode", addressElement.findElement(By.className("address_state_name")).getText());
+		addressMap.put("country", addressElement.findElement(By.className("address_country_name")).getText());
+		addressMap.put("phone", addressElement.findElement(By.className("2102102233")).getText());
+		return addressMap;
+	}
 	
+	public Map<String, String> getDeliveryAddress(){
+		return addressUtility(this.deliverAddress);
+	}
+	
+	public Map<String, String> getBillingAddress(){
+		return addressUtility(this.billingAddress);
+	}
+	
+	public CartPage setOrderMessage(String msg) {
+		this.orderMessage.sendKeys(msg);
+		return this;
+	}
+	
+	public PaymentPage clickCheckoutButton() {
+		this.checkoutButton.click();
+		return new PaymentPage(driver);
+	}
 	
 	
 	

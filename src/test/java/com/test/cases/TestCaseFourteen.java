@@ -1,20 +1,24 @@
 package com.test.cases;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import org.testng.Assert;
+import org.testng.annotations.Test;
 
 import com.page.pages.AccountCreated;
 import com.page.pages.AccountInformation;
 import com.page.pages.CartPage;
 import com.page.pages.HomePage;
+import com.page.pages.OrderPlaced;
 import com.test.base.TestBase;
+import com.test.models.CreditCard;
+import com.test.models.CustomerInfo;
+
+import utils.JsonUtil;
 
 public class TestCaseFourteen extends TestBase {
-
-	String name = "n";
-	String email = "n@c.com";
-	HashMap<String, String> accountInformation = new HashMap<>();
+	CustomerInfo customer;
+	String msg = "message";
 
 //✅ Test Case 14: Place Order: Register while Checkout
 //
@@ -38,50 +42,70 @@ public class TestCaseFourteen extends TestBase {
 //18. Verify success message 'Congratulations! Your order has been confirmed!'
 //19. Click 'Delete Account' button
 //20. Verify 'ACCOUNT DELETED!' and click 'Continue' button
+	@Test(description = "tc 14")
 	public void TC_014_Place_Order_Register_While_Checkout() {
 		TestCaseOne.verifyHomePageIsVisibleSuccessfully();
 		TestCaseTwelve.hoverAndAddFirstProductToCartAndContinueShopping();
 		TestCaseTwelve.hoverAndAddSecondProductToCartAndGoToCart();
 		TestCaseTwelve.verifyBothProductsAreAddedToCart();
 		TestCaseTwelve.verifyPriceQuantityAndTotalPrice(1);
-		proceedToCheckOutAndRegisterNewAccount(name, email);
-		fillOutAccountInformationForNewAccount(accountInformation);
+		getCustomerData();
+		proceedToCheckOutAndRegisterNewAccount(customer.getFirstName(), customer.getEmail());
+		fillOutAccountInformationForNewAccount();
 		verifyAccountCreationAndVerifyUserName();
-		
+		proceedTocart();
+		verifyShippingAndBillingAddress(customer.getAddress().getStreet(), customer.getAddress().getStreet());
+		addMessagePlaceOrderAndVerifySuccessMessage(msg, customer.getCreditCard());
+	}
+
+	public void getCustomerData() {
+		customer = JsonUtil.parseAcctInfoJson(
+				"/Users/work/eclipse-workspace/AutomationExercise/src/test/resources/newAccount.json");
 	}
 
 	public void proceedToCheckOutAndRegisterNewAccount(String email, String name) {
-		new CartPage(driver)
-		.clickCheckOutButton()
-		.clickLoginRegisterButton()
-		.enterSignupEmail(email)
-		.enterSignupName(name)
-		.clickSignupButton();
+		new CartPage(driver).clickCheckOutButton().clickLoginRegisterButton().enterSignupEmail(email)
+				.enterSignupName(name).clickSignupButton();
 	}
-	public void fillOutAccountInformationForNewAccount(HashMap<String, String> info) {
-		new AccountInformation(driver)
-		.fillInformation(info)
-		.clickCreateAccountButton();
+
+	public void fillOutAccountInformationForNewAccount() {
+		new AccountInformation(driver).fillInformation(customer).clickCreateAccountButton();
 	}
-	
+
 	public void verifyAccountCreationAndVerifyUserName() {
 		AccountCreated ac = new AccountCreated(driver);
-		boolean acctCreated = ac
-		.getTitleText()
-		.toUpperCase()
-		.equals("Account Created!");
+		boolean acctCreated = ac.getTitleText().toUpperCase().equals("Account Created!");
 		Assert.assertTrue(acctCreated);
-		boolean userName = ac
-		.clickContinueButton()
-		.getLoggedUserNameElement()
-		.getText()
-		.equals(name);
+		boolean userName = ac.clickContinueButton().getLoggedUserNameElement().getText()
+				.equals(customer.getFirstName());
 		Assert.assertTrue(userName);
 	}
-	public void clickCartAndProceedToReviewAddressAndOrderDetail() {
-		new HomePage(driver)
-		.clickCartButton()
-		.proceedToCheckOutWhenLoggedIn();
+
+	public void proceedTocart() {
+		new HomePage(driver).clickCartButton().proceedToCheckOutWhenLoggedIn();
 	}
-	
+
+	public void verifyShippingAndBillingAddress(String billingAdd, String shippingAdd) {
+		CartPage cp = new CartPage(driver);
+		Map<String, String> billingAddress = cp.getBillingAddress();
+		Map<String, String> shippingAddress = cp.getDeliveryAddress();
+		Assert.assertEquals(billingAddress.get("streetAddress"), billingAdd);
+		Assert.assertEquals(shippingAddress.get("streetAddress"), shippingAdd);
+	}
+
+	public void addMessagePlaceOrderAndVerifySuccessMessage(String msg, CreditCard card) {
+		boolean successMsg = new CartPage(driver).setOrderMessage(msg).clickCheckoutButton().fillPaymentInfo(card)
+				.clickPaymentButton().getSuccessToastMessage().getText()
+				.equals("Your order has been placed successfully!");
+
+		Assert.assertTrue(successMsg);
+	}
+
+	public void deleteAccount() {
+		boolean acctDeletion = new OrderPlaced(driver).clickContinueButton().deleteUser().getTitleElement().getText()
+				.equals("ACCOUNT DELETED!");
+
+		Assert.assertTrue(acctDeletion);
+	}
+
 }

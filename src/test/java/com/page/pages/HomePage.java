@@ -79,8 +79,9 @@ public class HomePage extends PageBase{
 		WaitUtils.waitForElementToBeVisible(driver, this.loggedUserName);
 		return this.loggedUserName.getText();
 	}
-	public void deleteUser() {
+	public DeleteUser deleteUser() {
 		this.deleteUser.click();
+		return new DeleteUser(driver);
 	}
 	public void userLogout() {
 		this.logoutButton.click();

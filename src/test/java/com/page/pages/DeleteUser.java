@@ -23,18 +23,12 @@ public class DeleteUser extends PageBase{
 	public WebElement getTitleElement() {
 		return this.deleteHeader;
 	}
-
-	/*
-	public static void waitForElementToBeVisible(WebElement titleElement) {
-		waitUtil.waitForElementToBeVisible(titleElement);
-	}
-	*/
 	
 	public String getTitleElementText() {
 		WaitUtils.waitForElementToBeVisible(driver, this.deleteHeader);
-		//waitForElementToBeVisible(this.deleteHeader);
 		return this.deleteHeader.getText();
 	}
+
 	
 	public void clickContinueButton() {
 		this.continueButton.click();

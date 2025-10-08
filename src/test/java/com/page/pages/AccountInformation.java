@@ -2,7 +2,6 @@ package com.page.pages;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebDriver;
@@ -11,6 +10,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
 import com.page.base.PageBase;
+import com.test.models.Address;
+import com.test.models.CustomerInfo;
 
 import utils.JavascriptUtils;
 import utils.WaitUtils;
@@ -172,6 +173,13 @@ public class AccountInformation extends PageBase {
 	public void setZipcode(String zipcode) {
 		this.zipcode.sendKeys(zipcode);
 	}
+	
+	public void setAddressUtility(Address address) {
+		setStreetAddressOne(address.getStreet());
+		setStreetAddressTwo(address.getApt());
+		setCity(address.getCity());
+		setZipcode(address.getZip());
+	}
 
 	public void setMobileNumber(String mobile) {
 		this.signUpMobile.sendKeys(mobile);
@@ -190,22 +198,17 @@ public class AccountInformation extends PageBase {
 		}
 	}
 
-	public AccountInformation fillInformation(HashMap<String,String> accountInfo) {
-		setTitle(accountInfo.get("title"));
-		setPassword(accountInfo.get("password"));
-		setDataOfBirth(accountInfo.get("dob"));
+	public AccountInformation fillInformation(CustomerInfo cust) {
+		setTitle(cust.getTitle());
+		setPassword(cust.getPassword());
+		setDataOfBirth(cust.getDob());
 		signUpForNewsLetter();
 		receiveSpecialOffers();
-		setFirstName(accountInfo.get("firstname"));
-		setLastName(accountInfo.get("lastname"));
-		setCompany(accountInfo.get("company"));
-		setStreetAddressOne(accountInfo.get("addressOne"));
-		setStreetAddressTwo(accountInfo.get("apt"));
-		setCountry(accountInfo.get("country"));
-		setState(accountInfo.get("state"));
-		setCity(accountInfo.get("city"));
-		setZipcode(accountInfo.get("zipcode"));
-		setMobileNumber(accountInfo.get("mobile"));
+		setFirstName(cust.getFirstName());
+		setLastName(cust.getLastName());
+		setCompany(cust.getCompany());
+		setAddressUtility(cust.getAddress());
+		setMobileNumber(cust.getMobile());
 		return this;
 	}
 
