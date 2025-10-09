@@ -18,7 +18,8 @@ import utils.WaitUtils;
 public class ProductPage extends PageBase{
 
 	private static final Logger logger = LogManager.getLogger(ProductPage.class);
-	@FindBy(xpath = "//h2[text()='All Products']")
+	
+	@FindBy(css = "h2.title")
 	private WebElement landingHeader;
 	
 	@FindBy(css = "a[href='/product_details/1']")
@@ -41,6 +42,12 @@ public class ProductPage extends PageBase{
 	
 	@FindBy(css = "div.product-overlay a[data-product-id='1']")
 	private WebElement firstProductAddToCartOnHover;
+
+	@FindBy(linkText = "MEN")
+	private WebElement categoryMen;
+
+	@FindBy(linkText = "JEANS")
+	private WebElement mensJeans;
 	
 	public ProductPage(WebDriver driver) {
 		super(driver);
@@ -100,6 +107,21 @@ public class ProductPage extends PageBase{
 		WaitUtils.waitForElementToBeClickable(driver, firstProductAddToCartOnHover);
 		this.firstProductAddToCartOnHover.click();
 		return new DialogBoxPage(driver);
+	}
+	
+	public WebElement getLandingHeader() {
+		return this.landingHeader;
+	}
+	
+	public ProductPage expandMensCategory() {
+		this.categoryMen.click();
+		return this;
+	}
+	
+	public ProductPage clickMensJeans() {
+		WaitUtils.waitForElementToBeVisible(driver, mensJeans);
+		this.mensJeans.click();
+		return this;
 	}
 	
 	

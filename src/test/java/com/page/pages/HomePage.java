@@ -1,5 +1,8 @@
 package com.page.pages;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -55,6 +58,14 @@ public class HomePage extends PageBase{
 	@FindBy(css = "a[href='/view_cart']")
 	private WebElement cartButton;
 	
+	@FindBy(css = "h4.panel-title a")
+	private List<WebElement> categories;
+
+	@FindBy(linkText = "WOMEN")
+	private WebElement womenCategory;
+	
+	@FindBy(linkText = "DRESS")
+	private WebElement womensDress;
 	
 	public WebElement getHomeElement() {
 		return this.homeButton;
@@ -125,6 +136,22 @@ public class HomePage extends PageBase{
 	public CartPage clickCartButton() {
 		this.cartButton.click();
 		return new CartPage(driver);
+	}
+	public List<String> getCategories() {
+		return this.categories
+		.stream()
+		.map(WebElement::getText)
+		.collect(Collectors.toList());		
+	}
+	
+	public HomePage expandWomenCategory() {
+		this.womenCategory.click();
+		return this;
+	}
+	
+	public ProductPage clickWomensDress() {
+		this.womensDress.click();
+		return new ProductPage(driver);
 	}
 	
 	
