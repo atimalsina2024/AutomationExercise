@@ -6,6 +6,8 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
+import utils.PropertyUtil;
+
 public class TestBase {
 	protected static WebDriver driver;
 	
@@ -16,7 +18,7 @@ public class TestBase {
 		//options.addArguments("--headless");
 		driver = new FirefoxDriver(options);
 		driver.manage().window().maximize();
-		driver.get("http://automationexercise.com");
+		driver.get(PropertyUtil.get("baseUrl"));
 	}
 	
 	@AfterTest

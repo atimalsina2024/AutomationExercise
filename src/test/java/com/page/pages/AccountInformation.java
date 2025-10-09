@@ -118,10 +118,19 @@ public class AccountInformation extends PageBase {
 		String monthString = dob.format(DateTimeFormatter.ofPattern("MMMM"));
 		String dayString = Integer.toString(dob.getDayOfMonth());
 		String yearString = Integer.toString(dob.getYear());
-
-		this.dobDays.selectByValue(dayString);
-		this.dobMonth.selectByVisibleText(monthString);
-		this.dobYear.selectByValue(yearString);
+		try {
+			this.dobDays.selectByValue(dayString);
+			this.dobMonth.selectByVisibleText(monthString);
+			this.dobYear.selectByValue(yearString);
+		}catch(ElementClickInterceptedException e) {
+			logger.error("ElementClickInterceptedExceptio error");
+			e.printStackTrace();
+			JavascriptUtils.javascriptScrollToView(driver, this.day);
+			this.dobDays.selectByValue(dayString);
+			this.dobMonth.selectByVisibleText(monthString);
+			this.dobYear.selectByValue(yearString);
+		}
+		
 	}
 
 	public void signUpForNewsLetter() {

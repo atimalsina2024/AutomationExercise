@@ -33,6 +33,7 @@ public class TestCaseTwelve extends TestBase{
 		hoverAndAddSecondProductToCartAndGoToCart();
 		verifyBothProductsAreAddedToCart();
 		verifyPriceQuantityAndTotalPrice(quantity);
+		
 	}
 	public static void hoverAndAddFirstProductToCartAndContinueShopping() {
 		new ProductPage(driver)

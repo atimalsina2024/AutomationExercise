@@ -63,6 +63,9 @@ public class CartPage extends PageBase{
 	@FindBy(className = "check_out")
 	private WebElement placeOrderButton;
 	
+	@FindBy(xpath = "//b[text()='Cart is empty!']")
+	private WebElement cartEmptyMessage;
+	
 	public CartPage(WebDriver driver) {
 		super(driver);
 	}
@@ -109,13 +112,19 @@ public class CartPage extends PageBase{
 		.map(WebElement::getText)
 		.collect(Collectors.toList());
 	}
+
 	
-	public DialogBoxPage clickCheckOutButton() {
+	public DialogBoxPage clickCheckOutButtonNotLoggedIn() {
 		this.checkoutButton.click();
 		return new DialogBoxPage(driver);
 	}
 	
-	public CartPage proceedToCheckOutWhenLoggedIn() {
+	public CartPage clickCheckOutButtonLoggedIn() {
+		this.checkoutButton.click();
+		return this;
+	}
+	
+	public CartPage clickCheckOutWhenLoggedIn() {
 		this.checkoutButton.click();
 		return this;
 	}
@@ -158,6 +167,18 @@ public class CartPage extends PageBase{
 	public PaymentPage clickCheckoutButton() {
 		this.checkoutButton.click();
 		return new PaymentPage(driver);
+	}
+	
+	public CartPage deleteItemsInCart() {
+		for(WebElement button:this.deleteButton) {
+			button.click();
+		}
+		return this;
+	}
+	
+	public WebElement getEmptyCartMessage() {
+		WaitUtils.waitForElementToBeVisible(driver, cartEmptyMessage);
+		return this.cartEmptyMessage;
 	}
 	
 	

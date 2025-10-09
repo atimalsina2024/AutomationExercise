@@ -12,6 +12,7 @@ import com.page.pages.AccountInformation;
 import com.page.pages.CartPage;
 import com.page.pages.HomePage;
 import com.page.pages.OrderPlaced;
+import com.page.pages.SignupLogin;
 import com.test.base.TestBase;
 import com.test.models.CreditCard;
 import com.test.models.CustomerInfo;
@@ -19,7 +20,7 @@ import com.test.models.CustomerInfo;
 import utils.JsonUtil;
 
 public class TestCaseFourteen extends TestBase {
-	CustomerInfo customer;
+	private CustomerInfo customer;
 	String msg = "message";
 	private static final Logger logger = LogManager.getLogger(TestCaseFourteen.class);
 
@@ -53,17 +54,12 @@ public class TestCaseFourteen extends TestBase {
 		TestCaseTwelve.verifyBothProductsAreAddedToCart();
 		TestCaseTwelve.verifyPriceQuantityAndTotalPrice(1);
 		getCustomerData();
-		proceedToCheckOutAndRegisterNewAccount(customer.getEmail(), customer.getFirstName());
-		fillOutAccountInformationForNewAccount();
-		verifyAccountCreationAndVerifyUserName();
+		proceedToCheckOut();
+		registerNewAccount(customer);
+		fillOutAccountInformationForNewAccount(customer);
+		verifyAccountCreationAndVerifyUserName(customer);
 		proceedTocart();
-		String billingAddress = customer.getCompany().concat(" ")
-				.concat(customer.getAddress().getStreet().concat(" ")
-				.concat(customer.getAddress().getApt()));
-		String shippingAddress = customer.getCompany().concat(" ")
-				.concat(customer.getAddress().getStreet().concat(" ")
-				.concat(customer.getAddress().getApt()));
-		verifyShippingAndBillingAddress(billingAddress,shippingAddress);
+		verifyShippingAndBillingAddress(customer);
 		addMessagePlaceOrderAndVerifySuccessMessage(msg, customer.getCreditCard());
 		deleteAccount();
 	}
@@ -74,33 +70,50 @@ public class TestCaseFourteen extends TestBase {
 				"/Users/work/eclipse-workspace/AutomationExercise/src/test/resources/newAccount.json");
 	}
 
-	public void proceedToCheckOutAndRegisterNewAccount(String email, String name) {
-		logger.info("proceedToCheckOutAndRegisterNewAccount Entry");
-		new CartPage(driver).clickCheckOutButton().clickLoginRegisterButton().enterSignupEmail(email)
-				.enterSignupName(name).clickSignupButton();
+	public static void proceedToCheckOut() {
+		logger.info("proceedToCheckOut Entry");
+		new CartPage(driver)
+		.clickCheckOutButtonNotLoggedIn()
+		.clickLoginRegisterButton();
+	}
+	
+	public static void registerNewAccount(CustomerInfo custo) {
+		logger.info("registerNewAccount Entry");
+		new SignupLogin(driver)
+		.enterSignupEmail(custo.getEmail())
+		.enterSignupName(custo.getFirstName())
+		.clickSignupButton();
 	}
 
-	public void fillOutAccountInformationForNewAccount() {
+	public static void fillOutAccountInformationForNewAccount(CustomerInfo custo) {
 		logger.info("fillOutAccountInformationForNewAccount Entry");
-		new AccountInformation(driver).fillInformation(customer).clickCreateAccountButton();
+		new AccountInformation(driver)
+		.fillInformation(custo)
+		.clickCreateAccountButton();
 	}
 
-	public void verifyAccountCreationAndVerifyUserName() {
+	public static void verifyAccountCreationAndVerifyUserName(CustomerInfo custo) {
 		logger.info("verifyAccountCreationAndVerifyUserName entry");
 		AccountCreated ac = new AccountCreated(driver);
 		boolean acctCreated = ac.getTitleText().toUpperCase().equals("ACCOUNT CREATED!");
 		Assert.assertTrue(acctCreated);
 		boolean userName = ac.clickContinueButton().getLoggedUserNameElement().getText()
-				.equals(customer.getFirstName());
+				.equals(custo.getFirstName());
 		Assert.assertTrue(userName);
 	}
 
-	public void proceedTocart() {
+	public static void proceedTocart() {
 		logger.info("proceedTocart entry");
-		new HomePage(driver).clickCartButton().proceedToCheckOutWhenLoggedIn();
+		new HomePage(driver).clickCartButton().clickCheckOutWhenLoggedIn();
 	}
 
-	public void verifyShippingAndBillingAddress(String billingAdd, String shippingAdd) {
+	public static void verifyShippingAndBillingAddress(CustomerInfo custo) {
+		String billingAdd = custo.getCompany().concat(" ")
+				.concat(custo.getAddress().getStreet().concat(" ")
+				.concat(custo.getAddress().getApt()));
+		String shippingAdd = custo.getCompany().concat(" ")
+				.concat(custo.getAddress().getStreet().concat(" ")
+				.concat(custo.getAddress().getApt()));
 		logger.info("verifyShippingAndBillingAddress entry");
 		CartPage cp = new CartPage(driver);
 		Map<String, String> billingAddress = cp.getBillingAddress();
@@ -109,7 +122,7 @@ public class TestCaseFourteen extends TestBase {
 		Assert.assertEquals(shippingAddress.get("streetAddress"), shippingAdd);
 	}
 
-	public void addMessagePlaceOrderAndVerifySuccessMessage(String msg, CreditCard card) {
+	public static void addMessagePlaceOrderAndVerifySuccessMessage(String msg, CreditCard card) {
 		logger.info("addMessagePlaceOrderAndVerifySuccessMessage entry");
 		boolean successMsg = new CartPage(driver).setOrderMessage(msg).clickCheckoutButton().fillPaymentInfo(card)
 				.clickPaymentButton().getSuccessMessage().getText()
@@ -118,7 +131,7 @@ public class TestCaseFourteen extends TestBase {
 		Assert.assertTrue(successMsg);
 	}
 
-	public void deleteAccount() {
+	public static void deleteAccount() {
 		logger.info("deleteAccount entry");
 		boolean acctDeletion = new OrderPlaced(driver).clickContinueButton().deleteUser().getTitleElement().getText()
 				.equals("ACCOUNT DELETED!");
