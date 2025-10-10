@@ -29,7 +29,7 @@ public class TestCaseNine extends TestBase{
 		verifyProductRelatedToSearch();
 	}
 	
-	public void searchProductAndVerifySearchedProductsIsVisible() {
+	public static void searchProductAndVerifySearchedProductsIsVisible() {
 		boolean searchResultLanding = new ProductPage(driver)
 		.enterSearchTextToSearchTextBox(search)
 		.clickSearchButton()
@@ -39,7 +39,7 @@ public class TestCaseNine extends TestBase{
 		.equals("SEARCHED PRODUCTS");		
 		Assert.assertTrue(searchResultLanding);
 	}
-	public void verifyProductRelatedToSearch() {
+	public static void verifyProductRelatedToSearch() {
 		List<String> names = new SearchProductPage(driver)
 		.getAllSearchResultProductName();
 		for(String name: names) {

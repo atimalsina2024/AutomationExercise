@@ -24,7 +24,7 @@ public class TestCaseSeventeen extends TestBase{
 		TestCaseTwelve.hoverAndAddSecondProductToCartAndGoToCart();
 		deleteProductsInAndVerifyProductsAreDeleted();
 	}
-	public void deleteProductsInAndVerifyProductsAreDeleted() {
+	public static void deleteProductsInAndVerifyProductsAreDeleted() {
 		boolean cartMsg = new CartPage(driver)
 		.deleteItemsInCart()
 		.getEmptyCartMessage()

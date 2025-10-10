@@ -11,6 +11,9 @@ public class OrderPlaced extends PageBase{
 	@FindBy(css = "a[data-qa='continue-button']")
 	private WebElement continueButton;
 	
+	@FindBy(css = "a.check_out")
+	private WebElement downloadInvoice;
+	
 	public OrderPlaced(WebDriver driver) {
 		super(driver);
 	}
@@ -18,6 +21,11 @@ public class OrderPlaced extends PageBase{
 	public HomePage clickContinueButton() {
 		this.continueButton.click();
 		return new HomePage(driver);
+	}
+	
+	public OrderPlaced clickDownloadInvoiceButton() {
+		this.downloadInvoice.click();
+		return this;
 	}
 
 }

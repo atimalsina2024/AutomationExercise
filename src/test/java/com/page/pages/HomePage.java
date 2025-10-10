@@ -20,28 +20,28 @@ public class HomePage extends PageBase{
 	}
 
 	@FindBy(css = "ul.nav a[href='/']")
-	WebElement homeButton;
+	private WebElement homeButton;
 	
 	@FindBy(css = "a[href='/login']")
-	WebElement logonSignupButton;
+	private WebElement logonSignupButton;
 	
 	@FindBy(css = "ul.navbar-nav b")
-	WebElement loggedUserName;
+	private WebElement loggedUserName;
 	
 	@FindBy(css = "a[href='/delete_account']")
-	WebElement deleteUser;
+	private WebElement deleteUser;
 	
 	@FindBy(css = "a[href='/logout']")
-	WebElement logoutButton;
+	private WebElement logoutButton;
 	
 	@FindBy(css = "a[href='/contact_us']")
-	WebElement contactUsButton;
+	private WebElement contactUsButton;
 	
 	@FindBy(css = "a[href='/test_cases']")
-	WebElement testCaseButton;
+	private WebElement testCaseButton;
 	
 	@FindBy(css = "a[href='/products']")
-	WebElement productButton;
+	private WebElement productButton;
 	
 	@FindBy(css = "div.single-widget h2")
 	private WebElement subscription;
@@ -66,6 +66,11 @@ public class HomePage extends PageBase{
 	
 	@FindBy(linkText = "DRESS")
 	private WebElement womensDress;
+	
+	@FindBy(css = "div.recommended_items h2.title")
+	private WebElement recommendedItemHeader;
+	
+	private String activeRecommendation ="div#recommended-item-carousel div.active";
 	
 	public WebElement getHomeElement() {
 		return this.homeButton;
@@ -152,6 +157,24 @@ public class HomePage extends PageBase{
 	public ProductPage clickWomensDress() {
 		this.womensDress.click();
 		return new ProductPage(driver);
+	}
+	
+	public WebElement getRemmendedItemHeader() {
+		JavascriptUtils.javascriptScrollToView(driver, this.recommendedItemHeader);
+		return this.recommendedItemHeader;
+	}
+	
+	public WebElement getActiveRecommendations() {
+		return WaitUtils.waitForToastElement(driver, By.cssSelector(activeRecommendation));
+	}
+	
+	public DialogBoxPage addRecommendedProductToCart() {
+		WebElement elmnt = getActiveRecommendations();
+		JavascriptUtils.javascriptScrollToView(driver, elmnt);
+		elmnt
+		.findElement(By.cssSelector(" a.add-to-cart"))
+		.click();
+		return new DialogBoxPage(driver);
 	}
 	
 	

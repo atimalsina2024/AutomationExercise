@@ -49,6 +49,12 @@ public class ProductPage extends PageBase{
 	@FindBy(linkText = "JEANS")
 	private WebElement mensJeans;
 	
+	@FindBy(css = "div.brands_products h2")
+	private WebElement brandHeader;
+	
+	@FindBy(css = "a[href='/brand_products/Polo']")
+	private WebElement brandPolo;
+	
 	public ProductPage(WebDriver driver) {
 		super(driver);
 	}
@@ -121,6 +127,21 @@ public class ProductPage extends PageBase{
 	public ProductPage clickMensJeans() {
 		WaitUtils.waitForElementToBeVisible(driver, mensJeans);
 		this.mensJeans.click();
+		return this;
+	}
+	
+	public WebElement getBrandHeader() {
+		return this.brandHeader;
+	}
+
+	public ProductPage clickPolo() {
+		try {
+			this.brandPolo.click();
+		}catch(ElementClickInterceptedException e) {
+			WaitUtils.waitForElementToBeClickable(driver, brandPolo);
+			this.brandPolo.click();
+		}
+		
 		return this;
 	}
 	

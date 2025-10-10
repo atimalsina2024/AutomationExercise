@@ -65,6 +65,9 @@ public class CartPage extends PageBase{
 	
 	@FindBy(xpath = "//b[text()='Cart is empty!']")
 	private WebElement cartEmptyMessage;
+
+	@FindBy(linkText = "Home")
+	private WebElement homePageButton;
 	
 	public CartPage(WebDriver driver) {
 		super(driver);
@@ -165,6 +168,7 @@ public class CartPage extends PageBase{
 	}
 	
 	public PaymentPage clickCheckoutButton() {
+		JavascriptUtils.javascriptScrollToView(driver, this.checkoutButton);
 		this.checkoutButton.click();
 		return new PaymentPage(driver);
 	}
@@ -181,7 +185,10 @@ public class CartPage extends PageBase{
 		return this.cartEmptyMessage;
 	}
 	
-	
+	public HomePage clickHomePageButton() {
+		this.homePageButton.click();
+		return new HomePage(driver);
+	}
 	
 
 }

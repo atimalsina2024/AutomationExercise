@@ -34,9 +34,9 @@ public class TestCaseThree extends TestBase{
 //		8. Verify error 'Your email or password is incorrect!' is visible
 		
 		TestCaseOne.verifyHomePageIsVisibleSuccessfully();
-		TestCaseOne.clickSignUpButton();
+		TestCaseOne.clickSignUpButtonFromHomePage();
 		TestCaseTwo.verifyLoginIsVisible();
-		TestCaseTwo.login("login@test.com", "test2");
+		TestCaseTwo.loginFromLoginPage("login@test.com", "test2");
 		verifyLoginFailMessage();
 	}
 	

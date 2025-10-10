@@ -54,13 +54,15 @@ public class TestCaseFourteen extends TestBase {
 		TestCaseTwelve.verifyBothProductsAreAddedToCart();
 		TestCaseTwelve.verifyPriceQuantityAndTotalPrice(1);
 		getCustomerData();
-		proceedToCheckOut();
+		proceedToCheckOutFromCart();
 		registerNewAccount(customer);
 		fillOutAccountInformationForNewAccount(customer);
 		verifyAccountCreationAndVerifyUserName(customer);
-		proceedTocart();
+		proceedTocartFromHomePage();
+		proceedToCheckoutWhenLoggedIn();
 		verifyShippingAndBillingAddress(customer);
 		addMessagePlaceOrderAndVerifySuccessMessage(msg, customer.getCreditCard());
+		continueToHomeFromOrderPlacementConfirmation();
 		deleteAccount();
 	}
 
@@ -70,7 +72,7 @@ public class TestCaseFourteen extends TestBase {
 				"/Users/work/eclipse-workspace/AutomationExercise/src/test/resources/newAccount.json");
 	}
 
-	public static void proceedToCheckOut() {
+	public static void proceedToCheckOutFromCart() {
 		logger.info("proceedToCheckOut Entry");
 		new CartPage(driver)
 		.clickCheckOutButtonNotLoggedIn()
@@ -102,11 +104,14 @@ public class TestCaseFourteen extends TestBase {
 		Assert.assertTrue(userName);
 	}
 
-	public static void proceedTocart() {
+	public static void proceedTocartFromHomePage() {
 		logger.info("proceedTocart entry");
-		new HomePage(driver).clickCartButton().clickCheckOutWhenLoggedIn();
+		new HomePage(driver).clickCartButton();
 	}
-
+	public static void proceedToCheckoutWhenLoggedIn() {
+		new CartPage(driver)
+		.clickCheckOutButtonLoggedIn();
+	}
 	public static void verifyShippingAndBillingAddress(CustomerInfo custo) {
 		String billingAdd = custo.getCompany().concat(" ")
 				.concat(custo.getAddress().getStreet().concat(" ")
@@ -130,10 +135,13 @@ public class TestCaseFourteen extends TestBase {
 
 		Assert.assertTrue(successMsg);
 	}
-
+	public static void continueToHomeFromOrderPlacementConfirmation() {
+		new OrderPlaced(driver)
+		.clickContinueButton();
+	}
 	public static void deleteAccount() {
 		logger.info("deleteAccount entry");
-		boolean acctDeletion = new OrderPlaced(driver).clickContinueButton().deleteUser().getTitleElement().getText()
+		boolean acctDeletion = new HomePage(driver).deleteUser().getTitleElement().getText()
 				.equals("ACCOUNT DELETED!");
 
 		Assert.assertTrue(acctDeletion);

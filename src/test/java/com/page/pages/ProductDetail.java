@@ -1,11 +1,14 @@
 package com.page.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import com.page.base.PageBase;
+
+import utils.WaitUtils;
 
 public class ProductDetail extends PageBase{
 	
@@ -32,6 +35,20 @@ public class ProductDetail extends PageBase{
 	
 	@FindBy(css = "button.cart")
 	WebElement addToCartButton;
+	
+	@FindBy(id = "name")
+	WebElement reviewerName;
+	
+	@FindBy(id = "email")
+	WebElement reviewerEmail;
+	
+	@FindBy(id = "review")
+	WebElement productReview;
+	
+	@FindBy(id = "button-review")
+	WebElement submitReview;
+	
+	private String reviewSuccessMessage = "div.alert-success span";
 	
 	public ProductDetail(WebDriver driver) {
 		super(driver);
@@ -71,6 +88,30 @@ public class ProductDetail extends PageBase{
 	public DialogBoxPage clickAddToCartButton() {
 		this.addToCartButton.click();
 		return new DialogBoxPage(driver);
+	}
+	
+	public ProductDetail enterName(String name) {
+		this.reviewerName.sendKeys(name);
+		return this;
+	}
+	
+	public ProductDetail enterEmail(String email) {
+		this.reviewerEmail.sendKeys(email);
+		return this;
+	}
+	
+	public ProductDetail enterMessage(String review) {
+		this.productReview.sendKeys(review);
+		return this;
+	}
+	
+	public ProductDetail clickSubmitButton() {
+		this.submitReview.click();
+		return this;
+	}
+	
+	public WebElement getReviewSubmissionMessage() {
+		return WaitUtils.waitForToastElement(driver, By.cssSelector(reviewSuccessMessage));
 	}
 
 

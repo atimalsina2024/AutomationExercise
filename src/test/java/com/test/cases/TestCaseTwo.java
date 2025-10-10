@@ -27,9 +27,9 @@ public class TestCaseTwo extends TestBase{
 	@Test(priority = 1, description = "positive login scenario")
 	public static void Test_002_Login_Positive_02() {
 		TestCaseOne.verifyHomePageIsVisibleSuccessfully();
-		TestCaseOne.clickSignUpButton();
+		TestCaseOne.clickSignUpButtonFromHomePage();
 		verifyLoginIsVisible();
-		login("login@test.com", "test1");
+		loginFromLoginPage("login@test.com", "test1");
 		verifyLoggedInUsernameIsVisible("usr");
 	}
 	
@@ -42,7 +42,7 @@ public class TestCaseTwo extends TestBase{
 		assertTrue(rslt);
 	}
 	
-	public static void login(String email, String password) {
+	public static void loginFromLoginPage(String email, String password) {
 		SignupLogin sl = new SignupLogin(driver);
 		sl.setLoginEmail(email);
 		sl.setLoginPassword(password);

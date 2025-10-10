@@ -20,7 +20,7 @@ public class TestCaseFive extends TestBase{
 //		7. Click 'Signup' button
 //		8. Verify error 'Email Address already exist!' is visible
 		TestCaseOne.verifyHomePageIsVisibleSuccessfully();
-		TestCaseOne.clickSignUpButton();
+		TestCaseOne.clickSignUpButtonFromHomePage();
 		TestCaseOne.verifySignupInformationIsVisible();
 		TestCaseOne.signUp("usr", "login@test.com");
 		verifyIncorrectEmailError();

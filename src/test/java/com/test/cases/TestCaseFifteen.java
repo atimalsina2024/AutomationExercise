@@ -35,7 +35,7 @@ public class TestCaseFifteen extends TestBase{
 	public void TC_015_Register_Before_Checkout() {
 		TestCaseOne.verifyHomePageIsVisibleSuccessfully();
 		getCustomerInfo();
-		TestCaseOne.clickSignUpButton();
+		TestCaseOne.clickSignUpButtonFromHomePage();
 		TestCaseFourteen.registerNewAccount(customer);
 		TestCaseFourteen.fillOutAccountInformationForNewAccount(customer);
 		TestCaseFourteen.verifyAccountCreationAndVerifyUserName(customer);

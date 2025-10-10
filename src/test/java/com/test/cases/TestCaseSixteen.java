@@ -29,9 +29,9 @@ public class TestCaseSixteen extends TestBase {
 	@Test(description = "tc 16")
 	public void TC_16_Login_Before_Checkout() {
 		TestCaseOne.verifyHomePageIsVisibleSuccessfully();
-		TestCaseOne.clickSignUpButton();
+		TestCaseOne.clickSignUpButtonFromHomePage();
 		TestCaseOne.verifySignupInformationIsVisible();
-		TestCaseTwo.login(PropertyUtil.get("email"), PropertyUtil.get("password"));
+		TestCaseTwo.loginFromLoginPage(PropertyUtil.get("email"), PropertyUtil.get("password"));
 		TestCaseTwo.verifyLoggedInUsernameIsVisible(PropertyUtil.get("name"));
 		TestCaseTwelve.hoverAndAddFirstProductToCartAndContinueShopping();
 		TestCaseTwelve.hoverAndAddSecondProductToCartAndGoToCart();
