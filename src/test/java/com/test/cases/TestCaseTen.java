@@ -23,7 +23,7 @@ public class TestCaseTen extends TestBase{
 		ScrollToFooterAndVerifySubscription();
 		enterSubscriptionEmailAndVerifySubscriptionToastMessage();
 	}
-	public void ScrollToFooterAndVerifySubscription() {
+	public static void ScrollToFooterAndVerifySubscription() {
 		boolean subscriptionMsg = new HomePage(driver)
 		.scrollToSubscription()
 		.getText()

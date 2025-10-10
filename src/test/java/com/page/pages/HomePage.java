@@ -72,6 +72,12 @@ public class HomePage extends PageBase{
 	
 	private String activeRecommendation ="div#recommended-item-carousel div.active";
 	
+	@FindBy(id = "scrollUp")
+	private WebElement upArrow;
+	
+	@FindBy(css = "div.carousel div.active h2")
+	private WebElement homePageLandingCarousel;
+	
 	public WebElement getHomeElement() {
 		return this.homeButton;
 	}
@@ -135,7 +141,6 @@ public class HomePage extends PageBase{
 	
 	public WebElement getSubscriptionConfirmationMessage() {
 		return WaitUtils.waitForToastElement(driver, By.className(subscriptionConfirmationMessageElementLocator));
-		//return this.subscriptionConfirmationMessageElement;
 	}
 	
 	public CartPage clickCartButton() {
@@ -171,10 +176,23 @@ public class HomePage extends PageBase{
 	public DialogBoxPage addRecommendedProductToCart() {
 		WebElement elmnt = getActiveRecommendations();
 		JavascriptUtils.javascriptScrollToView(driver, elmnt);
-		elmnt
-		.findElement(By.cssSelector(" a.add-to-cart"))
-		.click();
+		WebElement cart = elmnt.findElement(By.cssSelector(" a.add-to-cart"));
+		JavascriptUtils.javascriptScrollToView(driver, cart);
+		cart.click();
 		return new DialogBoxPage(driver);
+	}
+	
+	public HomePage clickScrollUpArrow() {
+		this.upArrow.click();
+		return this;
+	}
+	
+	public WebElement getLandingCarousel() {
+		return this.homePageLandingCarousel;
+	}
+	public HomePage scrollToHomePageWithoutClickingArrow() {
+		JavascriptUtils.javascriptScrollToView(driver, homePageLandingCarousel);
+		return this;
 	}
 	
 	

@@ -1,11 +1,18 @@
 package com.test.cases;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.page.pages.OrderPlaced;
 import com.test.base.TestBase;
 import com.test.models.CustomerInfo;
 
+import utils.FileHandlerUtils;
 import utils.JsonUtil;
 import utils.PropertyUtil;
 
@@ -35,6 +42,7 @@ public class TestCaseTwentyfour extends TestBase{
 //	20. Click 'Continue' button
 //	21. Click 'Delete Account' button
 //	22. Verify 'ACCOUNT DELETED!' and click 'Continue' button
+	private static final Logger logger = LogManager.getLogger(TestCaseTwentyfour.class);
 	CustomerInfo customer;
 	@Test(description = "Test Case 24: Download Invoice after purchase order")
 	public void TC_024_Download_Invoice_After_Purchase_Order() {
@@ -60,6 +68,14 @@ public class TestCaseTwentyfour extends TestBase{
 	public void downloadInvoiceAndVedriverwnload() {
 		new OrderPlaced(driver)
 		.clickDownloadInvoiceButton();
-		// will implement download verification later
+		boolean isFileDownloaded;
+		try {
+			isFileDownloaded = FileHandlerUtils.validateFileInAFolder(System.getProperty("user.dir") + File.separator + PropertyUtil.get("download.path"), "invoice");
+		} catch (IOException e) {
+			isFileDownloaded = false;
+			logger.error("file not found");
+			e.printStackTrace();
+		}
+		Assert.assertTrue(isFileDownloaded);
 	}
 }
