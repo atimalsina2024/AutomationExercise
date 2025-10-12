@@ -26,7 +26,7 @@ public class UserLoginFlow {
 		Assert.assertTrue(loginButtonVisible,"Login Visible Failed");
 	}
 	
-	public void loginFromSignupLoginPage(String email, String password) {
+	public void login(String email, String password) {
 		new SignupLogin(driver)
 		.setLoginEmail(email)
 		.setLoginPassword(password)

@@ -103,4 +103,19 @@ public class CartPageFlow {
 		Assert.assertTrue(isCartEmpty);
 		logger.info("verifyCartIsEmpty");
 	}
+
+	public void verifyNumberOfProductsInCart(int num) {
+		boolean productSize = new CartPage(driver)
+				.getProductNames()
+				.size() == num;		
+				Assert.assertTrue(productSize, "number of products assertion fail");
+				logger.info("verifyNumberOfProductsInCart");
+			}
+
+	public void deleteAccount() {
+		new CartPage(driver)
+		.clickDeleteAccountButton();
+		
+	}
+		
 }

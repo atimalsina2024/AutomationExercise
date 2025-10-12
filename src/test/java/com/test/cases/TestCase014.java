@@ -82,12 +82,13 @@ public class TestCase014 extends TestBase {
 		accountRegistrationFlow.fillAccountDetailsAndCreateAccount(customer);
 		accountRegistrationFlow.verifyAccountCreated();
 		accountRegistrationFlow.continueToHomePageFromAccountRegistrationPage();
-		homePageFlow.proceedToCart();
+		homePageFlow.navigateToCartPage();
 		cartPageFlow.proceedToCheckout();
 		cartPageFlow.verifyShippingAndBillingAddress(customer);
 		cartPageFlow.addMessageAndPlaceOrder(msg);
 		paymentPageFlow.makePaymentAndVerifyOrderSuccess(customer.getCreditCard());
 		paymentPageFlow.proceedToHomePageFromSuccessfulOrderPlacement();
-		deleteUserFlow.deleteUserFromHomePageAndVerifyDeletion();
+		homePageFlow.deleteUserFrom();
+		deleteUserFlow.verifyDeletionConfirmation();
 	}
 }

@@ -36,11 +36,33 @@ public class ProductDetailFlow {
 	public void increaseQuantity(int i) {
 		new ProductDetail(driver)
 		.increaseQuantity(i);
+		logger.debug("increaseQuantity");
 	}
 	
 	public void addProductToCart() {
 		new ProductDetail(driver)
 		.clickAddToCartButton();
+		logger.debug("addProductToCart");
+	}
+	
+	
+	public void addProductReview(String name, String email, String message) {
+		new ProductDetail(driver)
+		.enterName(name)
+		.enterEmail(email)
+		.enterMessage(message)
+		.clickSubmitButton();
+		logger.debug("addProductReview");
+	}
+	
+	public void VerifyProductReviewSubmissionSuccessMessage() {
+		boolean submissionSuccess = new ProductDetail(driver)
+		.getReviewSubmissionMessage()
+		.getText()
+		.equals("Thank you for your review.");
+		
+		Assert.assertTrue(submissionSuccess);
+		logger.debug("VerifyProductReviewSubmissionSuccessMessage");
 	}
 
 }

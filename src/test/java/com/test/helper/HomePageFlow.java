@@ -100,11 +100,6 @@ public class HomePageFlow {
 		
 	}
 
-	public void proceedToCart() {
-		new HomePage(driver).clickCartButtonOnHomePage();
-		logger.debug("proceedToCart");
-	}
-
 	public void verifyCategoriesAreVisible() {
 		boolean catgs = new HomePage(driver)
 				.getCategories()
@@ -135,5 +130,48 @@ public class HomePageFlow {
 		
 		Assert.assertTrue(mensCat);
 		logger.debug("clickAndVerifyMensDress");
+	}
+	
+	public void verifyRecommendedItemsIsVisible() {
+		boolean recoHeader = new HomePage(driver)
+		.getRemmendedItemHeader()
+		.getText()
+		.toUpperCase()
+		.equals("RECOMMENDED ITEMS");
+
+		Assert.assertTrue(recoHeader, "Recommendation header");
+		logger.debug("verifyRecommendedItemsIsVisible");
+	}
+	
+	public void addARecommendedProductToCart() {
+		new HomePage(driver)
+		.addRecommendedProductToCart();
+		logger.debug("verifyRecommendedItemsIsVisible");
+	}
+	
+	public void deleteUserFrom() {
+		new HomePage(driver)
+		.deleteUser();
+		logger.debug("deleteUserFrom");
+	}
+
+	public void scrollToTopUsingArrow() {
+		new HomePage(driver).clickScrollUpArrow();
+		logger.debug("scrollToTopUsingArrow");
+		}
+	
+	public void verifyPageBodyMessageIsSeen() {
+		boolean msg = new HomePage(driver)
+		.getLandingCarousel()
+		.isDisplayed();
+		
+		Assert.assertTrue(msg);
+		logger.debug("verifyPageBodyMessageIsSeen");
+	}
+
+	public void scrollToTop() {
+		new HomePage(driver)
+		.scrollToHomePageWithoutClickingArrow();
+		logger.debug("scrollToTop");
 	}
 }

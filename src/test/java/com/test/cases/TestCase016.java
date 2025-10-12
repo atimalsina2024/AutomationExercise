@@ -63,7 +63,7 @@ public class TestCase016 extends TestBase {
 		homePageFlow.verifyCurrentlyOnHomePage();
 		homePageFlow.navigateToSignupLoginPage();
 		userLoginFlow.verifyLoginIsVisible();
-		userLoginFlow.loginFromSignupLoginPage(PropertyUtil.get("email"), PropertyUtil.get("password"));
+		userLoginFlow.login(PropertyUtil.get("email"), PropertyUtil.get("password"));
 		homePageFlow.verifyUsernameVisibilityFromHomePage();
 		homePageFlow.navigateToProductPage();
 		productPageFlow.hoverAndAddFirstProduct();
@@ -75,7 +75,8 @@ public class TestCase016 extends TestBase {
 		cartPageFlow.addMessageAndPlaceOrder(msg);
 		paymentPageFlow.makePaymentAndVerifyOrderSuccess(customer.getCreditCard());
 		paymentPageFlow.proceedToHomePageFromSuccessfulOrderPlacement();
-		deleteUserFlow.deleteUserFromHomePageAndVerifyDeletion();
+		homePageFlow.deleteUserFrom();
+		deleteUserFlow.verifyDeletionConfirmation();
 		deleteUserFlow.continueToHomePageAfterUserDeletionConfirmation();
 	}
 

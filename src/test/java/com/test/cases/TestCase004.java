@@ -38,7 +38,7 @@ public class TestCase004 extends TestBase{
 //		10. Verify that user is navigated to login page
 		homePageFlow.verifyCurrentlyOnHomePage();
 		homePageFlow.navigateToSignupLoginPage();
-		userLoginFlow.loginFromSignupLoginPage(PropertyUtil.get("email"), PropertyUtil.get("password"));
+		userLoginFlow.login(PropertyUtil.get("email"), PropertyUtil.get("password"));
 		homePageFlow.verifyUsernameVisibilityFromHomePage();
 		homePageFlow.logOutFromHomePage();
 		userLoginFlow.verifyLoginIsVisible();

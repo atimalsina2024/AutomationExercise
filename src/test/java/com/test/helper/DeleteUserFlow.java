@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 import com.page.pages.DeleteUser;
-import com.page.pages.HomePage;
 
 public class DeleteUserFlow {
 	
@@ -19,21 +18,20 @@ public class DeleteUserFlow {
 		logger.debug("DeleteUserFlow constructed");
 	}
 	
-	public void deleteUserFromHomePageAndVerifyDeletion() {
-		logger.debug("deleteUserFromHomePageAndVerifyDeletion");
-		boolean deletionConfirmation = new HomePage(driver)
-		.deleteUser()
+	public void verifyDeletionConfirmation() {
+		boolean isAccountDeleted = new DeleteUser(driver)
 		.getDeletionMessage()
 		.getText()
 		.equals("ACCOUNT DELETED!");
 		
-		Assert.assertTrue(deletionConfirmation, "User deletion failed");
+		Assert.assertTrue(isAccountDeleted, "User deletion failed");
+		logger.debug("verifyDeletionConfirmation");
 		
 	}
 	
 	public void continueToHomePageAfterUserDeletionConfirmation() {
-		logger.debug("continueToHomePageAfterUserDeletionConfirmation");
 		new DeleteUser(driver)
 		.clickContinueButton();
+		logger.debug("continueToHomePageAfterUserDeletionConfirmation");
 	}
 }

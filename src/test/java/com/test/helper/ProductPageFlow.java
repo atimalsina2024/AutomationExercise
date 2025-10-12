@@ -97,4 +97,23 @@ public class ProductPageFlow {
 		Assert.assertTrue(poloLanding);
 		logger.debug("clickOnPoloAndVerifyLandingOnPoloPage");
 	}
+
+	//need to refactor this. Need to move clickContinueToDialogPageFlow
+	public void addAllSearchedProductsToCart() {
+		SearchProductPage sp = new SearchProductPage(driver);
+		sp.getSearchedProductElements()
+		.stream()
+		.forEach(element ->{
+			sp.hoverOnProduct(element)
+			.addProductToCart(element)
+			.clickContinueShopping();
+		});
+		logger.debug("addAllSearchedProductsToCart");
+	}
+
+	public void navigateToCartPage() {
+		new SearchProductPage(driver)
+		.clickCartButton();
+		logger.debug("addAllSearchedProductsToCart");
+	}
 }

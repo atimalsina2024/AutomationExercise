@@ -33,7 +33,7 @@ public class TestCase003 extends TestBase{
 //		8. Verify error 'Your email or password is incorrect!' is visible
 		homePageFlow.verifyCurrentlyOnHomePage();
 		homePageFlow.navigateToSignupLoginPage();
-		userLoginFlow.loginFromSignupLoginPage("login@test.com", "test2");
+		userLoginFlow.login("login@test.com", "test2");
 		userLoginFlow.verifyLoginFailure();
 		
 	}

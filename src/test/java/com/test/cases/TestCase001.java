@@ -60,7 +60,8 @@ public class TestCase001 extends TestBase{
 		accountRegistrationFlow.verifyAccountCreated();
 		accountRegistrationFlow.continueToHomePageFromAccountRegistrationPage();
 		homePageFlow.verifyUsernameVisibilityFromHomePage();
-		deleteUserFlow.deleteUserFromHomePageAndVerifyDeletion();
+		homePageFlow.deleteUserFrom();
+		deleteUserFlow.verifyDeletionConfirmation();
 		deleteUserFlow.continueToHomePageAfterUserDeletionConfirmation();
 		
 	}

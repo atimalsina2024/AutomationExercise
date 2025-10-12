@@ -69,6 +69,9 @@ public class CartPage extends PageBase{
 	@FindBy(linkText = "Home")
 	private WebElement homePageButton;
 	
+	@FindBy(linkText = "Delete Account")
+	private WebElement deleteAccountButton;
+	
 	public CartPage(WebDriver driver) {
 		super(driver);
 	}
@@ -83,7 +86,7 @@ public class CartPage extends PageBase{
 		return this;
 	}
 	
-	public CartPage clickSubscrbeButton() {
+	public CartPage clickSubscribeButton() {
 		this.subscriptionButton.click();
 		return this;
 	}
@@ -117,7 +120,7 @@ public class CartPage extends PageBase{
 	}
 
 	
-	public DialogBoxPage clickCheckOutButtonNotLoggedIn() {
+	public DialogBoxPage clickCheckOutButton() {
 		this.checkoutButton.click();
 		return new DialogBoxPage(driver);
 	}
@@ -127,10 +130,6 @@ public class CartPage extends PageBase{
 		return this;
 	}
 	
-	public CartPage clickCheckOutWhenLoggedIn() {
-		this.checkoutButton.click();
-		return this;
-	}
 	//convert address WebElement to Map
 	public Map<String, String> addressUtility(WebElement addressElement) {
 		Map<String, String> addressMap= new HashMap<>();
@@ -188,6 +187,16 @@ public class CartPage extends PageBase{
 	public HomePage clickHomePageButton() {
 		this.homePageButton.click();
 		return new HomePage(driver);
+	}
+	
+	public void clickPlaceOrder() {
+		JavascriptUtils.javascriptScrollToView(driver, this.placeOrderButton);
+		this.placeOrderButton.click();
+	}
+
+	public void clickDeleteAccountButton() {
+		this.deleteAccountButton.click();
+		
 	}
 	
 
