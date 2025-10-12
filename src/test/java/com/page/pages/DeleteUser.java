@@ -20,7 +20,8 @@ public class DeleteUser extends PageBase{
 	@FindBy(css = "a[data-qa='continue-button']")
 	WebElement continueButton;
 
-	public WebElement getTitleElement() {
+	public WebElement getDeletionMessage() {
+		WaitUtils.waitForElementToBeVisible(driver, this.deleteHeader);
 		return this.deleteHeader;
 	}
 	

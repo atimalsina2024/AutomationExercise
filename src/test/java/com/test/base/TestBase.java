@@ -2,6 +2,8 @@ package com.test.base;
 
 import java.io.File;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -14,9 +16,11 @@ import utils.PropertyUtil;
 public class TestBase {
 	protected static WebDriver driver;
 	
+	private static final Logger logger = LogManager.getLogger(TestBase.class);
+	
 	@BeforeTest
 	public void setup() {
-		
+		logger.debug("@BeforeTest");
 		FirefoxProfile profile = new FirefoxProfile();
 		profile.setPreference("browser.download.folderList", 2);
 		profile.setPreference("browser.download.dir", System.getProperty("user.dir") + File.separator + PropertyUtil.get("download.path"));
@@ -30,6 +34,7 @@ public class TestBase {
 		driver = new FirefoxDriver(options);
 		driver.manage().window().maximize();
 		driver.get(PropertyUtil.get("baseUrl"));
+		logger.debug("WebDriver initialized");
 	}
 	
 	@AfterTest

@@ -18,7 +18,7 @@ public class PropertyUtil {
 			prop.load(is);
 		} catch (IOException e) {
 			logger.error("error loading properties file");
-			throw new RuntimeException("Error loading confit.properties", e);
+			throw new RuntimeException("Error loading config.properties", e);
 		}
 		
 	}

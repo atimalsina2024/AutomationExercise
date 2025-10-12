@@ -1,5 +1,7 @@
 package com.page.pages;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,9 +11,11 @@ import com.page.base.PageBase;
 import utils.WaitUtils;
 
 public class SignupLogin extends PageBase{
-
+	private static final Logger logger = LogManager.getLogger(SignupLogin.class);
+	
 	public SignupLogin(WebDriver driver) {
 		super(driver);
+		logger.debug("SignupLogin constructed");
 	}
 	
 	@FindBy(xpath = "//h2[text()='New User Signup!']")
@@ -71,12 +75,14 @@ public class SignupLogin extends PageBase{
 		return this.loginHeaderElement.getText();
 	}
 
-	public void setLoginEmail(String email) {
+	public SignupLogin setLoginEmail(String email) {
 		this.loginEmail.sendKeys(email);
+		return this;
 	}
 
-	public void setLoginPassword(String password) {
+	public SignupLogin setLoginPassword(String password) {
 		this.loginPassword.sendKeys(password);
+		return this;
 	}
 
 	public void clickLoginButton() {

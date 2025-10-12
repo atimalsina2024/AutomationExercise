@@ -9,6 +9,8 @@ import com.page.base.PageBase;
 import com.test.models.CreditCard;
 import com.test.models.ExpirationDate;
 
+import utils.WaitUtils;
+
 
 public class PaymentPage extends PageBase{
 
@@ -63,6 +65,7 @@ public class PaymentPage extends PageBase{
 	}
 	
 	public PaymentPage clickPaymentButton() {
+		WaitUtils.waitForElementToBeClickable(driver, this.payAndConfirmButton);
 		this.payAndConfirmButton.click();
 		return this;
 	}

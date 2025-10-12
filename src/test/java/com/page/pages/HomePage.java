@@ -3,6 +3,8 @@ package com.page.pages;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,9 +17,7 @@ import utils.WaitUtils;
 
 public class HomePage extends PageBase{
 
-	public HomePage(WebDriver driver) {
-		super(driver);
-	}
+	private static final Logger logger = LogManager.getLogger(HomePage.class);
 
 	@FindBy(css = "ul.nav a[href='/']")
 	private WebElement homeButton;
@@ -78,14 +78,25 @@ public class HomePage extends PageBase{
 	@FindBy(css = "div.carousel div.active h2")
 	private WebElement homePageLandingCarousel;
 	
+	public HomePage(WebDriver driver) {
+		super(driver);
+		logger.debug("HomePage Constructor");
+	}
+	
 	public WebElement getHomeElement() {
 		return this.homeButton;
 	}
-	public boolean isElementSelected(WebElement homeBtn) {
+	
+	//helper make private after refactoring
+	public  boolean isElementSelected(WebElement homeBtn) {
 		if(homeBtn.getAttribute("style").equals("color: orange;")) {
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean isHomeButtonSelected() {
+		return isElementSelected(this.homeButton);
 	}
 	
 	public WebElement getLoggedUserNameElement() {
@@ -97,10 +108,6 @@ public class HomePage extends PageBase{
 		this.logonSignupButton.click();
 	}
 
-	public String getLoggedUserNameText() {
-		WaitUtils.waitForElementToBeVisible(driver, this.loggedUserName);
-		return this.loggedUserName.getText();
-	}
 	public DeleteUser deleteUser() {
 		this.deleteUser.click();
 		return new DeleteUser(driver);
@@ -124,9 +131,8 @@ public class HomePage extends PageBase{
 		return new ProductPage(driver);
 	}
 	
-	public WebElement scrollToSubscription() {
+	public void scrollToSubscription() {
 		JavascriptUtils.javascriptScrollToView(driver, this.subscription);
-		return this.subscription;
 	}
 	
 	public HomePage enterSubscriptionEmailAddress(String email) {
@@ -143,7 +149,7 @@ public class HomePage extends PageBase{
 		return WaitUtils.waitForToastElement(driver, By.className(subscriptionConfirmationMessageElementLocator));
 	}
 	
-	public CartPage clickCartButton() {
+	public CartPage clickCartButtonOnHomePage() {
 		this.cartButton.click();
 		return new CartPage(driver);
 	}
@@ -193,6 +199,10 @@ public class HomePage extends PageBase{
 	public HomePage scrollToHomePageWithoutClickingArrow() {
 		JavascriptUtils.javascriptScrollToView(driver, homePageLandingCarousel);
 		return this;
+	}
+
+	public WebElement getSubscriptionElement() {
+		return this.subscription;
 	}
 	
 	

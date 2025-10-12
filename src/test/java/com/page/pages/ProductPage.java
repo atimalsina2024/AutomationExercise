@@ -66,6 +66,7 @@ public class ProductPage extends PageBase{
 	
 	public ProductDetail clickViewProduct() {
 		try {
+			logger.debug("clickViewProduct");
 			logger.debug("try block");
 			firstProductViewDetailButton.click();
 		}catch(ElementClickInterceptedException e) {
@@ -74,7 +75,7 @@ public class ProductPage extends PageBase{
 			JavascriptUtils.javascriptScrollToView(driver, firstProductViewDetailButton);
 			firstProductViewDetailButton.click();
 			//JavascriptUtils.javascriptForceClick(driver, firstProductViewDetailButton);
-			logger.debug("js force click");
+			logger.debug("js force clicked firstProductViewDetailButton element");
 		}
 		return new ProductDetail(driver);
 	}
