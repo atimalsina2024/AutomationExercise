@@ -7,10 +7,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.test.models.Address;
-import com.test.models.CreditCard;
-import com.test.models.CustomerInfo;
-import com.test.models.ExpirationDate;
+import com.ui.test.models.Address;
+import com.ui.test.models.CreditCard;
+import com.ui.test.models.CustomerInfo;
+import com.ui.test.models.ExpirationDate;
 
 public class JsonUtil {
 

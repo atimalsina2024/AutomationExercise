@@ -1,1 +1,59 @@
+# -------------------------------------
+# Java Class Files
+# -------------------------------------
+*.class
+*.jar
+*.war
+*.ear
+
+# -------------------------------------
+# Logs
+# -------------------------------------
+*.log
+
+# -------------------------------------
+# Compiled Files & Build Directories
+# -------------------------------------
+/bin/
+/build/
 /target/
+/out/
+
+# -------------------------------------
+# Maven
+# -------------------------------------
+.mvn/
+!**/src/main/**
+!**/src/test/**
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# -------------------------------------
+# IDEs and Editors
+# -------------------------------------
+
+
+# Eclipse
+.project
+.classpath
+.settings/
+.apt_generated/
+.factorypath
+
+# -------------------------------------
+# Environment / Secrets
+# -------------------------------------
+
+
+# -------------------------------------
+# my project specific
+# -------------------------------------
+/test-output
+TestAnnotation.java
+#ConfigurationManager.java
+#ConfigurationManagerTest.java
+
+

@@ -14,7 +14,7 @@ public class PropertyUtil {
 	private static final Logger logger = LogManager.getLogger(PropertyUtil.class);
 	static {
 		try {
-			InputStream is = new FileInputStream(new File("/Users/work/eclipse-workspace/AutomationExercise/src/test/resources/config.properties"));
+			InputStream is = new FileInputStream(new File("/Users/work/eclipse-workspace/AutomationExercise/src/test/resources/qa.properties"));
 			prop.load(is);
 		} catch (IOException e) {
 			logger.error("error loading properties file");
