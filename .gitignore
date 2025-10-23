@@ -53,7 +53,8 @@ release.properties
 # -------------------------------------
 /test-output
 TestAnnotation.java
-#ConfigurationManager.java
-#ConfigurationManagerTest.java
+*.txt
+.DS_Store
+
 
 
